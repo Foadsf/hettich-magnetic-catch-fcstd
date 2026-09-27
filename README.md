@@ -59,7 +59,7 @@ The manufacturer's sheet is vector artwork whose labels are rounded to whole mil
 
 ## Build and verify locally
 
-You need FreeCAD 1.0.x. `fcstd_xml.py` finds it via `FREECAD_DIR`, the default Windows install location, or `PATH`. Run each step on its own:
+You need FreeCAD 1.0.x. CI uses conda-forge's `freecad=1.0` (currently 1.0.0) on Ubuntu, and the same gates also pass on FreeCAD 1.0.2 for Windows. `fcstd_xml.py` finds FreeCAD via `FREECAD_DIR`, the default Windows install location, or `PATH`. Run each step on its own:
 
 ```sh
 python tools/fcstd_xml.py lint src                      # counts, links, aliases, placements, GuiDocument traps

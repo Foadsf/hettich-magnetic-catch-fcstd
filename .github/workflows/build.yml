@@ -23,10 +23,10 @@ jobs:
     env:
       NAME: Hettich_MagneticCatch_5kg
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
 
       - name: FreeCAD 1.0 from conda-forge
-        uses: mamba-org/setup-micromamba@v2
+        uses: mamba-org/setup-micromamba@v3
         with:
           environment-name: freecad
           create-args: >-
@@ -71,7 +71,7 @@ jobs:
           pdftoppm -png -r 150 -singlefile "dist/${NAME}_Page.pdf" "dist/${NAME}_Page"
           ls -l dist
 
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v7
         with:
           name: hettich-magnetic-catch
           path: dist/
@@ -79,7 +79,7 @@ jobs:
 
       - name: Publish release assets
         if: startsWith(github.ref, 'refs/tags/v')
-        uses: softprops/action-gh-release@v2
+        uses: softprops/action-gh-release@v3
         with:
           files: dist/*
           generate_release_notes: true

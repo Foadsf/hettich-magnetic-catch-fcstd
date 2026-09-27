@@ -1308,9 +1308,9 @@
             <Properties Count="5" TransientCount="0">
                 <Property name="EditableTexts" type="App::PropertyMap">
                     <Map count="6">
-                        <Item key="ArticleNo" value="89261 / 89262 (Hettich 9322506)"/>
+                        <Item key="ArticleNo" value="89261 / 89262"/>
                         <Item key="Author" value="Foad S. Farimani"/>
-                        <Item key="Description" value="Magnetschnaepper 5 kg with counterplate - dims in mm"/>
+                        <Item key="Description" value="Magnetschnaepper 5 kg with counterplate (Hettich 9322506), dims in mm"/>
                         <Item key="FC-Date" value="2026-09-27"/>
                         <Item key="FC-SC" value="2 : 1"/>
                         <Item key="FC-Title" value="Magnetic catch 5 kg, white"/>
