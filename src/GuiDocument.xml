@@ -1,0 +1,65 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!--
+ Hand-authored view state for Hettich_MagneticCatch_5kg. Without this file FreeCAD 1.0 opens every
+ object hidden (view providers start invisible and an App::Part hides all of its children).
+ Only the objects whose look matters are listed; every construction primitive, boolean
+ intermediate and origin datum stays hidden by default.
+ ShapeColor is a packed 0xRRGGBBAA colour (AA = 0 -> opaque), the pre-1.0 form that 1.0 still reads.
+-->
+<!-- No HasExpansion attribute: its mere presence makes FreeCAD expect an <Expand> tree block first,
+     and without one the whole view-state restore is silently abandoned. -->
+<Document SchemaVersion="1">
+    <ViewProviderData Count="8">
+        <ViewProvider name="MagneticCatchAssembly" expanded="1">
+            <Properties Count="1" TransientCount="0">
+                <Property name="Visibility" type="App::PropertyBool"><Bool value="true"/></Property>
+            </Properties>
+        </ViewProvider>
+        <ViewProvider name="Catch" expanded="1">
+            <Properties Count="1" TransientCount="0">
+                <Property name="Visibility" type="App::PropertyBool"><Bool value="true"/></Property>
+            </Properties>
+        </ViewProvider>
+        <ViewProvider name="Counterplate" expanded="1">
+            <Properties Count="1" TransientCount="0">
+                <Property name="Visibility" type="App::PropertyBool"><Bool value="true"/></Property>
+            </Properties>
+        </ViewProvider>
+        <!-- white plastic (245,245,240) -->
+        <ViewProvider name="Housing" expanded="0">
+            <Properties Count="2" TransientCount="0">
+                <Property name="ShapeColor" type="App::PropertyColor"><PropertyColor value="4126535680"/></Property>
+                <Property name="Visibility" type="App::PropertyBool"><Bool value="true"/></Property>
+            </Properties>
+        </ViewProvider>
+        <!-- ferrite, near black (55,55,60) -->
+        <ViewProvider name="Magnet" expanded="0">
+            <Properties Count="2" TransientCount="0">
+                <Property name="ShapeColor" type="App::PropertyColor"><PropertyColor value="926366720"/></Property>
+                <Property name="Visibility" type="App::PropertyBool"><Bool value="true"/></Property>
+            </Properties>
+        </ViewProvider>
+        <!-- bright steel (170,175,182) -->
+        <ViewProvider name="PolePlateLower" expanded="0">
+            <Properties Count="2" TransientCount="0">
+                <Property name="ShapeColor" type="App::PropertyColor"><PropertyColor value="2863642112"/></Property>
+                <Property name="Visibility" type="App::PropertyBool"><Bool value="true"/></Property>
+            </Properties>
+        </ViewProvider>
+        <ViewProvider name="PolePlateUpper" expanded="0">
+            <Properties Count="2" TransientCount="0">
+                <Property name="ShapeColor" type="App::PropertyColor"><PropertyColor value="2863642112"/></Property>
+                <Property name="Visibility" type="App::PropertyBool"><Bool value="true"/></Property>
+            </Properties>
+        </ViewProvider>
+        <!-- zinc-plated steel (205,210,218) -->
+        <ViewProvider name="Plate" expanded="0">
+            <Properties Count="2" TransientCount="0">
+                <Property name="ShapeColor" type="App::PropertyColor"><PropertyColor value="3453147648"/></Property>
+                <Property name="Visibility" type="App::PropertyBool"><Bool value="true"/></Property>
+            </Properties>
+        </ViewProvider>
+    </ViewProviderData>
+    <!-- Standard FreeCAD isometric, looking at the magnet face from front-right-top -->
+    <Camera settings="OrthographicCamera {&#10;  viewportMapping ADJUST_CAMERA&#10;  position 57.735 -51.835 64.71&#10;  orientation 0.742906 0.307722 0.594473  1.217116&#10;  nearDistance 1&#10;  farDistance 200&#10;  aspectRatio 1&#10;  focalDistance 100&#10;  height 70&#10;&#10;}&#10;"/>
+</Document>

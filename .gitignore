@@ -1,0 +1,18 @@
+# Generated: CI builds these from src/ and publishes them as release assets.
+dist/
+out/
+*.FCStd
+*.FCStd1
+*.FCBak
+*.step
+*.stp
+*.dxf
+*.png
+*.svg.bak
+
+# Reference material that is not ours to redistribute (vendor sheet, pack photo).
+*.jpg
+*.pdf
+
+__pycache__/
+*.pyc

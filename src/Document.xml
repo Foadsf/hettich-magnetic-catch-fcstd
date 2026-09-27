@@ -1,0 +1,1605 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!--
+ Hettich magnetic catch 5 kg (89261 / 89262, Hettich no. 9322506) - parametric FreeCAD 1.0 document.
+ Hand-authored source. Every solid is rebuilt by FreeCAD from the primitives, boolean links and
+ expressions below; no cached B-rep (*.brp) is shipped. Driving dimensions live in the spreadsheet
+ "Params" (aliases), sourced from the Hettich MTA sheet 89261_89262_00 and the Hornbach pack print.
+
+ Frame: X = catch length (centred), Y = depth, magnet face of the housing at Y=0, back at +Y,
+        Z = up, mounting face of the housing at Z=0.
+ Placement: Px Py Pz = translation, Q0..Q3 = quaternion (x,y,z,w), A + Ox Oy Oz = the same rotation
+        as angle (rad) / axis. Both forms are written and must agree.
+ Rotation "RY" used below = -90 deg about X, which turns a primitive's +Z axis onto +Y.
+-->
+<Document SchemaVersion="4" ProgramVersion="1.0R39319 (Git)" FileVersion="1" StringHasher="1">
+    <StringHasher saveall="0" threshold="0" count="0"></StringHasher>
+    <Properties Count="6" TransientCount="0">
+        <Property name="Comment" type="App::PropertyString">
+            <String value="Hettich Magnetschnaepper 5 kg with counterplate. Parametric: edit the Params spreadsheet, then recompute."/>
+        </Property>
+        <Property name="CreatedBy" type="App::PropertyString">
+            <String value="Foad S. Farimani"/>
+        </Property>
+        <Property name="Label" type="App::PropertyString" status="1">
+            <String value="Hettich_MagneticCatch_5kg"/>
+        </Property>
+        <Property name="License" type="App::PropertyString" status="1">
+            <String value="All rights reserved"/>
+        </Property>
+        <Property name="ShowHidden" type="App::PropertyBool" status="1">
+            <Bool value="false"/>
+        </Property>
+        <Property name="Uid" type="App::PropertyUUID" status="16777217">
+            <Uuid value="6f1c2d3e-8a41-4b52-9c07-5e2b7d9a1f33"/>
+        </Property>
+    </Properties>
+    <Objects Count="76" Dependencies="1">
+        <ObjectDeps Name="Params" Count="0"/>
+        <ObjectDeps Name="MagneticCatchAssembly" Count="3">
+            <Dep Name="Origin"/>
+            <Dep Name="Catch"/>
+            <Dep Name="Counterplate"/>
+        </ObjectDeps>
+        <ObjectDeps Name="Origin" Count="6">
+            <Dep Name="X_Axis"/>
+            <Dep Name="Y_Axis"/>
+            <Dep Name="Z_Axis"/>
+            <Dep Name="XY_Plane"/>
+            <Dep Name="XZ_Plane"/>
+            <Dep Name="YZ_Plane"/>
+        </ObjectDeps>
+        <ObjectDeps Name="X_Axis" Count="0"/>
+        <ObjectDeps Name="Y_Axis" Count="0"/>
+        <ObjectDeps Name="Z_Axis" Count="0"/>
+        <ObjectDeps Name="XY_Plane" Count="0"/>
+        <ObjectDeps Name="XZ_Plane" Count="0"/>
+        <ObjectDeps Name="YZ_Plane" Count="0"/>
+        <ObjectDeps Name="Catch" Count="19">
+            <Dep Name="Origin001"/>
+            <Dep Name="Flange"/>
+            <Dep Name="Tower"/>
+            <Dep Name="HousingBlank"/>
+            <Dep Name="SlotL_Core"/>
+            <Dep Name="SlotL_End1"/>
+            <Dep Name="SlotL_End2"/>
+            <Dep Name="SlotCutterL"/>
+            <Dep Name="SlotR_Core"/>
+            <Dep Name="SlotR_End1"/>
+            <Dep Name="SlotR_End2"/>
+            <Dep Name="SlotCutterR"/>
+            <Dep Name="Pocket"/>
+            <Dep Name="HousingCut1"/>
+            <Dep Name="HousingCut2"/>
+            <Dep Name="Housing"/>
+            <Dep Name="Magnet"/>
+            <Dep Name="PolePlateLower"/>
+            <Dep Name="PolePlateUpper"/>
+        </ObjectDeps>
+        <ObjectDeps Name="Origin001" Count="6">
+            <Dep Name="X_Axis001"/>
+            <Dep Name="Y_Axis001"/>
+            <Dep Name="Z_Axis001"/>
+            <Dep Name="XY_Plane001"/>
+            <Dep Name="XZ_Plane001"/>
+            <Dep Name="YZ_Plane001"/>
+        </ObjectDeps>
+        <ObjectDeps Name="X_Axis001" Count="0"/>
+        <ObjectDeps Name="Y_Axis001" Count="0"/>
+        <ObjectDeps Name="Z_Axis001" Count="0"/>
+        <ObjectDeps Name="XY_Plane001" Count="0"/>
+        <ObjectDeps Name="XZ_Plane001" Count="0"/>
+        <ObjectDeps Name="YZ_Plane001" Count="0"/>
+        <ObjectDeps Name="Flange" Count="1">
+            <Dep Name="Params"/>
+        </ObjectDeps>
+        <ObjectDeps Name="Tower" Count="1">
+            <Dep Name="Params"/>
+        </ObjectDeps>
+        <ObjectDeps Name="HousingBlank" Count="2">
+            <Dep Name="Flange"/>
+            <Dep Name="Tower"/>
+        </ObjectDeps>
+        <ObjectDeps Name="SlotL_Core" Count="1">
+            <Dep Name="Params"/>
+        </ObjectDeps>
+        <ObjectDeps Name="SlotL_End1" Count="1">
+            <Dep Name="Params"/>
+        </ObjectDeps>
+        <ObjectDeps Name="SlotL_End2" Count="1">
+            <Dep Name="Params"/>
+        </ObjectDeps>
+        <ObjectDeps Name="SlotCutterL" Count="3">
+            <Dep Name="SlotL_Core"/>
+            <Dep Name="SlotL_End1"/>
+            <Dep Name="SlotL_End2"/>
+        </ObjectDeps>
+        <ObjectDeps Name="SlotR_Core" Count="1">
+            <Dep Name="Params"/>
+        </ObjectDeps>
+        <ObjectDeps Name="SlotR_End1" Count="1">
+            <Dep Name="Params"/>
+        </ObjectDeps>
+        <ObjectDeps Name="SlotR_End2" Count="1">
+            <Dep Name="Params"/>
+        </ObjectDeps>
+        <ObjectDeps Name="SlotCutterR" Count="3">
+            <Dep Name="SlotR_Core"/>
+            <Dep Name="SlotR_End1"/>
+            <Dep Name="SlotR_End2"/>
+        </ObjectDeps>
+        <ObjectDeps Name="Pocket" Count="1">
+            <Dep Name="Params"/>
+        </ObjectDeps>
+        <ObjectDeps Name="HousingCut1" Count="2">
+            <Dep Name="HousingBlank"/>
+            <Dep Name="SlotCutterL"/>
+        </ObjectDeps>
+        <ObjectDeps Name="HousingCut2" Count="2">
+            <Dep Name="HousingCut1"/>
+            <Dep Name="SlotCutterR"/>
+        </ObjectDeps>
+        <ObjectDeps Name="Housing" Count="2">
+            <Dep Name="HousingCut2"/>
+            <Dep Name="Pocket"/>
+        </ObjectDeps>
+        <ObjectDeps Name="Magnet" Count="1">
+            <Dep Name="Params"/>
+        </ObjectDeps>
+        <ObjectDeps Name="PolePlateLower" Count="1">
+            <Dep Name="Params"/>
+        </ObjectDeps>
+        <ObjectDeps Name="PolePlateUpper" Count="1">
+            <Dep Name="Params"/>
+        </ObjectDeps>
+        <ObjectDeps Name="Counterplate" Count="14">
+            <Dep Name="Params"/>
+            <Dep Name="Origin002"/>
+            <Dep Name="PlateCore"/>
+            <Dep Name="PlateEndL"/>
+            <Dep Name="PlateEndR"/>
+            <Dep Name="PlateBlank"/>
+            <Dep Name="HoleL"/>
+            <Dep Name="HoleR"/>
+            <Dep Name="CskL"/>
+            <Dep Name="CskR"/>
+            <Dep Name="PlateCut1"/>
+            <Dep Name="PlateCut2"/>
+            <Dep Name="PlateCut3"/>
+            <Dep Name="Plate"/>
+        </ObjectDeps>
+        <ObjectDeps Name="Origin002" Count="6">
+            <Dep Name="X_Axis002"/>
+            <Dep Name="Y_Axis002"/>
+            <Dep Name="Z_Axis002"/>
+            <Dep Name="XY_Plane002"/>
+            <Dep Name="XZ_Plane002"/>
+            <Dep Name="YZ_Plane002"/>
+        </ObjectDeps>
+        <ObjectDeps Name="X_Axis002" Count="0"/>
+        <ObjectDeps Name="Y_Axis002" Count="0"/>
+        <ObjectDeps Name="Z_Axis002" Count="0"/>
+        <ObjectDeps Name="XY_Plane002" Count="0"/>
+        <ObjectDeps Name="XZ_Plane002" Count="0"/>
+        <ObjectDeps Name="YZ_Plane002" Count="0"/>
+        <ObjectDeps Name="PlateCore" Count="1">
+            <Dep Name="Params"/>
+        </ObjectDeps>
+        <ObjectDeps Name="PlateEndL" Count="1">
+            <Dep Name="Params"/>
+        </ObjectDeps>
+        <ObjectDeps Name="PlateEndR" Count="1">
+            <Dep Name="Params"/>
+        </ObjectDeps>
+        <ObjectDeps Name="PlateBlank" Count="3">
+            <Dep Name="PlateCore"/>
+            <Dep Name="PlateEndL"/>
+            <Dep Name="PlateEndR"/>
+        </ObjectDeps>
+        <ObjectDeps Name="HoleL" Count="1">
+            <Dep Name="Params"/>
+        </ObjectDeps>
+        <ObjectDeps Name="HoleR" Count="1">
+            <Dep Name="Params"/>
+        </ObjectDeps>
+        <ObjectDeps Name="CskL" Count="1">
+            <Dep Name="Params"/>
+        </ObjectDeps>
+        <ObjectDeps Name="CskR" Count="1">
+            <Dep Name="Params"/>
+        </ObjectDeps>
+        <ObjectDeps Name="PlateCut1" Count="2">
+            <Dep Name="PlateBlank"/>
+            <Dep Name="HoleL"/>
+        </ObjectDeps>
+        <ObjectDeps Name="PlateCut2" Count="2">
+            <Dep Name="PlateCut1"/>
+            <Dep Name="HoleR"/>
+        </ObjectDeps>
+        <ObjectDeps Name="PlateCut3" Count="2">
+            <Dep Name="PlateCut2"/>
+            <Dep Name="CskL"/>
+        </ObjectDeps>
+        <ObjectDeps Name="Plate" Count="2">
+            <Dep Name="PlateCut3"/>
+            <Dep Name="CskR"/>
+        </ObjectDeps>
+        <ObjectDeps Name="Page" Count="20">
+            <Dep Name="Template"/>
+            <Dep Name="ViewFront"/>
+            <Dep Name="ViewTop"/>
+            <Dep Name="ViewSide"/>
+            <Dep Name="ViewPlateTop"/>
+            <Dep Name="ViewPlateSide"/>
+            <Dep Name="ViewIso"/>
+            <Dep Name="Dim01"/>
+            <Dep Name="Dim02"/>
+            <Dep Name="Dim03"/>
+            <Dep Name="Dim04"/>
+            <Dep Name="Dim05"/>
+            <Dep Name="Dim06"/>
+            <Dep Name="Dim07"/>
+            <Dep Name="Dim08"/>
+            <Dep Name="Dim09"/>
+            <Dep Name="Dim10"/>
+            <Dep Name="Dim11"/>
+            <Dep Name="Dim12"/>
+            <Dep Name="Dim13"/>
+        </ObjectDeps>
+        <ObjectDeps Name="Template" Count="0"/>
+        <ObjectDeps Name="ViewFront" Count="5">
+            <Dep Name="Housing"/>
+            <Dep Name="Magnet"/>
+            <Dep Name="PolePlateLower"/>
+            <Dep Name="PolePlateUpper"/>
+            <Dep Name="Plate"/>
+        </ObjectDeps>
+        <ObjectDeps Name="ViewTop" Count="4">
+            <Dep Name="Housing"/>
+            <Dep Name="Magnet"/>
+            <Dep Name="PolePlateLower"/>
+            <Dep Name="PolePlateUpper"/>
+        </ObjectDeps>
+        <ObjectDeps Name="ViewSide" Count="4">
+            <Dep Name="Housing"/>
+            <Dep Name="Magnet"/>
+            <Dep Name="PolePlateLower"/>
+            <Dep Name="PolePlateUpper"/>
+        </ObjectDeps>
+        <ObjectDeps Name="ViewPlateTop" Count="1">
+            <Dep Name="Plate"/>
+        </ObjectDeps>
+        <ObjectDeps Name="ViewPlateSide" Count="1">
+            <Dep Name="Plate"/>
+        </ObjectDeps>
+        <ObjectDeps Name="ViewIso" Count="5">
+            <Dep Name="Housing"/>
+            <Dep Name="Magnet"/>
+            <Dep Name="PolePlateLower"/>
+            <Dep Name="PolePlateUpper"/>
+            <Dep Name="Plate"/>
+        </ObjectDeps>
+        <ObjectDeps Name="Dim01" Count="1"><Dep Name="ViewFront"/></ObjectDeps>
+        <ObjectDeps Name="Dim02" Count="1"><Dep Name="ViewFront"/></ObjectDeps>
+        <ObjectDeps Name="Dim03" Count="1"><Dep Name="ViewFront"/></ObjectDeps>
+        <ObjectDeps Name="Dim04" Count="1"><Dep Name="ViewTop"/></ObjectDeps>
+        <ObjectDeps Name="Dim05" Count="1"><Dep Name="ViewTop"/></ObjectDeps>
+        <ObjectDeps Name="Dim06" Count="1"><Dep Name="ViewTop"/></ObjectDeps>
+        <ObjectDeps Name="Dim07" Count="1"><Dep Name="ViewTop"/></ObjectDeps>
+        <ObjectDeps Name="Dim08" Count="1"><Dep Name="ViewSide"/></ObjectDeps>
+        <ObjectDeps Name="Dim09" Count="1"><Dep Name="ViewSide"/></ObjectDeps>
+        <ObjectDeps Name="Dim10" Count="1"><Dep Name="ViewSide"/></ObjectDeps>
+        <ObjectDeps Name="Dim11" Count="1"><Dep Name="ViewPlateTop"/></ObjectDeps>
+        <ObjectDeps Name="Dim12" Count="1"><Dep Name="ViewPlateTop"/></ObjectDeps>
+        <ObjectDeps Name="Dim13" Count="1"><Dep Name="ViewPlateSide"/></ObjectDeps>
+        <Object type="Spreadsheet::Sheet" name="Params" id="1" Touched="1" />
+        <Object type="App::Part" name="MagneticCatchAssembly" id="2" />
+        <Object type="App::Origin" name="Origin" id="3" />
+        <Object type="App::Line" name="X_Axis" id="4" />
+        <Object type="App::Line" name="Y_Axis" id="5" />
+        <Object type="App::Line" name="Z_Axis" id="6" />
+        <Object type="App::Plane" name="XY_Plane" id="7" />
+        <Object type="App::Plane" name="XZ_Plane" id="8" />
+        <Object type="App::Plane" name="YZ_Plane" id="9" />
+        <Object type="App::Part" name="Catch" id="10" />
+        <Object type="App::Origin" name="Origin001" id="11" />
+        <Object type="App::Line" name="X_Axis001" id="12" />
+        <Object type="App::Line" name="Y_Axis001" id="13" />
+        <Object type="App::Line" name="Z_Axis001" id="14" />
+        <Object type="App::Plane" name="XY_Plane001" id="15" />
+        <Object type="App::Plane" name="XZ_Plane001" id="16" />
+        <Object type="App::Plane" name="YZ_Plane001" id="17" />
+        <Object type="Part::Box" name="Flange" id="18" Touched="1" />
+        <Object type="Part::Box" name="Tower" id="19" Touched="1" />
+        <Object type="Part::Fuse" name="HousingBlank" id="20" Touched="1" />
+        <Object type="Part::Box" name="SlotL_Core" id="21" Touched="1" />
+        <Object type="Part::Cylinder" name="SlotL_End1" id="22" Touched="1" />
+        <Object type="Part::Cylinder" name="SlotL_End2" id="23" Touched="1" />
+        <Object type="Part::MultiFuse" name="SlotCutterL" id="24" Touched="1" />
+        <Object type="Part::Box" name="SlotR_Core" id="25" Touched="1" />
+        <Object type="Part::Cylinder" name="SlotR_End1" id="26" Touched="1" />
+        <Object type="Part::Cylinder" name="SlotR_End2" id="27" Touched="1" />
+        <Object type="Part::MultiFuse" name="SlotCutterR" id="28" Touched="1" />
+        <Object type="Part::Box" name="Pocket" id="29" Touched="1" />
+        <Object type="Part::Cut" name="HousingCut1" id="30" Touched="1" />
+        <Object type="Part::Cut" name="HousingCut2" id="31" Touched="1" />
+        <Object type="Part::Cut" name="Housing" id="32" Touched="1" />
+        <Object type="Part::Box" name="Magnet" id="33" Touched="1" />
+        <Object type="Part::Box" name="PolePlateLower" id="34" Touched="1" />
+        <Object type="Part::Box" name="PolePlateUpper" id="35" Touched="1" />
+        <Object type="App::Part" name="Counterplate" id="36" />
+        <Object type="App::Origin" name="Origin002" id="37" />
+        <Object type="App::Line" name="X_Axis002" id="38" />
+        <Object type="App::Line" name="Y_Axis002" id="39" />
+        <Object type="App::Line" name="Z_Axis002" id="40" />
+        <Object type="App::Plane" name="XY_Plane002" id="41" />
+        <Object type="App::Plane" name="XZ_Plane002" id="42" />
+        <Object type="App::Plane" name="YZ_Plane002" id="43" />
+        <Object type="Part::Box" name="PlateCore" id="44" Touched="1" />
+        <Object type="Part::Cylinder" name="PlateEndL" id="45" Touched="1" />
+        <Object type="Part::Cylinder" name="PlateEndR" id="46" Touched="1" />
+        <Object type="Part::MultiFuse" name="PlateBlank" id="47" Touched="1" />
+        <Object type="Part::Cylinder" name="HoleL" id="48" Touched="1" />
+        <Object type="Part::Cylinder" name="HoleR" id="49" Touched="1" />
+        <Object type="Part::Cone" name="CskL" id="50" Touched="1" />
+        <Object type="Part::Cone" name="CskR" id="51" Touched="1" />
+        <Object type="Part::Cut" name="PlateCut1" id="52" Touched="1" />
+        <Object type="Part::Cut" name="PlateCut2" id="53" Touched="1" />
+        <Object type="Part::Cut" name="PlateCut3" id="54" Touched="1" />
+        <Object type="Part::Cut" name="Plate" id="55" Touched="1" />
+        <Object type="TechDraw::DrawPage" name="Page" id="56" Touched="1" />
+        <Object type="TechDraw::DrawSVGTemplate" name="Template" id="57" />
+        <Object type="TechDraw::DrawViewPart" name="ViewFront" id="58" Touched="1" />
+        <Object type="TechDraw::DrawViewPart" name="ViewTop" id="59" Touched="1" />
+        <Object type="TechDraw::DrawViewPart" name="ViewSide" id="60" Touched="1" />
+        <Object type="TechDraw::DrawViewPart" name="ViewPlateTop" id="61" Touched="1" />
+        <Object type="TechDraw::DrawViewPart" name="ViewPlateSide" id="62" Touched="1" />
+        <Object type="TechDraw::DrawViewPart" name="ViewIso" id="63" Touched="1" />
+        <Object type="TechDraw::DrawViewDimension" name="Dim01" id="64" Touched="1" />
+        <Object type="TechDraw::DrawViewDimension" name="Dim02" id="65" Touched="1" />
+        <Object type="TechDraw::DrawViewDimension" name="Dim03" id="66" Touched="1" />
+        <Object type="TechDraw::DrawViewDimension" name="Dim04" id="67" Touched="1" />
+        <Object type="TechDraw::DrawViewDimension" name="Dim05" id="68" Touched="1" />
+        <Object type="TechDraw::DrawViewDimension" name="Dim06" id="69" Touched="1" />
+        <Object type="TechDraw::DrawViewDimension" name="Dim07" id="70" Touched="1" />
+        <Object type="TechDraw::DrawViewDimension" name="Dim08" id="71" Touched="1" />
+        <Object type="TechDraw::DrawViewDimension" name="Dim09" id="72" Touched="1" />
+        <Object type="TechDraw::DrawViewDimension" name="Dim10" id="73" Touched="1" />
+        <Object type="TechDraw::DrawViewDimension" name="Dim11" id="74" Touched="1" />
+        <Object type="TechDraw::DrawViewDimension" name="Dim12" id="75" Touched="1" />
+        <Object type="TechDraw::DrawViewDimension" name="Dim13" id="76" Touched="1" />
+    </Objects>
+    <ObjectData Count="76">
+<!-- ============================ PARAMETERS ============================ -->
+        <Object name="Params">
+            <Properties Count="2" TransientCount="0">
+                <Property name="Label" type="App::PropertyString">
+                    <String value="Params"/>
+                </Property>
+                <Property name="cells" type="Spreadsheet::PropertySheet">
+                    <Cells Count="79" xlink="1">
+                        <XLinks count="0">
+                        </XLinks>
+                        <Cell address="A1" content="&apos;Parameter" />
+                        <Cell address="B1" content="&apos;Value [mm]" />
+                        <Cell address="C1" content="&apos;Meaning / source" />
+                        <Cell address="A2" content="&apos;HsgLength" />
+                        <Cell address="B2" content="45" alias="HsgLength" />
+                        <Cell address="C2" content="&apos;Housing overall length (MTA 45)" />
+                        <Cell address="A3" content="&apos;HsgDepth" />
+                        <Cell address="B3" content="14" alias="HsgDepth" />
+                        <Cell address="C3" content="&apos;Housing depth, back to magnet face (MTA 14)" />
+                        <Cell address="A4" content="&apos;HsgHeight" />
+                        <Cell address="B4" content="13.3" alias="HsgHeight" />
+                        <Cell address="C4" content="&apos;Housing height above mounting face (MTA 13, measured 13.3)" />
+                        <Cell address="A5" content="&apos;FlangeThk" />
+                        <Cell address="B5" content="4.3" alias="FlangeThk" />
+                        <Cell address="C5" content="&apos;Screw flange thickness (measured on MTA)" />
+                        <Cell address="A6" content="&apos;TowerLength" />
+                        <Cell address="B6" content="27.2" alias="TowerLength" />
+                        <Cell address="C6" content="&apos;Magnet tower length (pack print 27.2)" />
+                        <Cell address="A7" content="&apos;SlotPitch" />
+                        <Cell address="B7" content="37" alias="SlotPitch" />
+                        <Cell address="C7" content="&apos;Screw slot pitch (MTA 37)" />
+                        <Cell address="A8" content="&apos;SlotWidth" />
+                        <Cell address="B8" content="3" alias="SlotWidth" />
+                        <Cell address="C8" content="&apos;Screw slot width (pack print 3)" />
+                        <Cell address="A9" content="&apos;SlotLength" />
+                        <Cell address="B9" content="6" alias="SlotLength" />
+                        <Cell address="C9" content="&apos;Screw slot overall length, depth adjustment (MTA 6)" />
+                        <Cell address="A10" content="&apos;SlotFromBack" />
+                        <Cell address="B10" content="8" alias="SlotFromBack" />
+                        <Cell address="C10" content="&apos;Slot centre from housing back face (measured)" />
+                        <Cell address="A11" content="&apos;PoleLength" />
+                        <Cell address="B11" content="24.5" alias="PoleLength" />
+                        <Cell address="C11" content="&apos;Steel pole plate / magnet length (measured)" />
+                        <Cell address="A12" content="&apos;PoleThk" />
+                        <Cell address="B12" content="1.25" alias="PoleThk" />
+                        <Cell address="C12" content="&apos;Steel pole plate thickness (measured)" />
+                        <Cell address="A13" content="&apos;PoleProtrusion" />
+                        <Cell address="B13" content="1" alias="PoleProtrusion" />
+                        <Cell address="C13" content="&apos;Pole plates stand proud of the housing face (measured)" />
+                        <Cell address="A14" content="&apos;MagnetHeight" />
+                        <Cell address="B14" content="5" alias="MagnetHeight" />
+                        <Cell address="C14" content="&apos;Ferrite magnet height between the pole plates (measured)" />
+                        <Cell address="A15" content="&apos;PocketDepth" />
+                        <Cell address="B15" content="10" alias="PocketDepth" />
+                        <Cell address="C15" content="&apos;Magnet pocket depth into the housing (assumed)" />
+                        <Cell address="A16" content="&apos;PlateLength" />
+                        <Cell address="B16" content="38" alias="PlateLength" />
+                        <Cell address="C16" content="&apos;Counterplate length (MTA 38)" />
+                        <Cell address="A17" content="&apos;PlateWidth" />
+                        <Cell address="B17" content="11.8" alias="PlateWidth" />
+                        <Cell address="C17" content="&apos;Counterplate width, full radius ends (pack print 11.8)" />
+                        <Cell address="A18" content="&apos;PlateThk" />
+                        <Cell address="B18" content="1.2" alias="PlateThk" />
+                        <Cell address="C18" content="&apos;Counterplate sheet thickness (measured)" />
+                        <Cell address="A19" content="&apos;HolePitch" />
+                        <Cell address="B19" content="26.2" alias="HolePitch" />
+                        <Cell address="C19" content="&apos;Counterplate hole pitch (pack print 26.2)" />
+                        <Cell address="A20" content="&apos;HoleDia" />
+                        <Cell address="B20" content="4.5" alias="HoleDia" />
+                        <Cell address="C20" content="&apos;Counterplate hole diameter (pack print 4.5)" />
+                        <Cell address="A21" content="&apos;CskDia" />
+                        <Cell address="B21" content="6.5" alias="CskDia" />
+                        <Cell address="C21" content="&apos;90 deg countersink diameter, magnet side (assumed)" />
+                        <Cell address="A22" content="&apos;DoorGap" />
+                        <Cell address="B22" content="0" alias="DoorGap" />
+                        <Cell address="C22" content="&apos;Air gap counterplate to pole plates; 0 = door closed" />
+                        <Cell address="A24" content="&apos;Derived" />
+                        <Cell address="A25" content="&apos;MagnetCenterZ" />
+                        <Cell address="B25" content="=FlangeThk + PoleThk + MagnetHeight / 2" alias="MagnetCenterZ" />
+                        <Cell address="A26" content="&apos;PocketHeight" />
+                        <Cell address="B26" content="=2 * PoleThk + MagnetHeight" alias="PocketHeight" />
+                        <Cell address="A27" content="&apos;SlotY" />
+                        <Cell address="B27" content="=HsgDepth - SlotFromBack" alias="SlotY" />
+                        <Cell address="A28" content="&apos;SlotStraight" />
+                        <Cell address="B28" content="=SlotLength - SlotWidth" alias="SlotStraight" />
+                        <Cell address="A29" content="&apos;PlateEndOffset" />
+                        <Cell address="B29" content="=(PlateLength - PlateWidth) / 2" alias="PlateEndOffset" />
+                        <Cell address="A30" content="&apos;CskDepth" />
+                        <Cell address="B30" content="=(CskDia - HoleDia) / 2" alias="CskDepth" />
+                    </Cells>
+                </Property>
+            </Properties>
+        </Object>
+<!-- ============================ ASSEMBLY CONTAINER ============================ -->
+        <Object name="MagneticCatchAssembly" Extensions="True">
+            <Extensions Count="1">
+                <Extension type="App::OriginGroupExtension" name="OriginGroupExtension">
+                </Extension>
+            </Extensions>
+            <Properties Count="5" TransientCount="0">
+                <Property name="Group" type="App::PropertyLinkList">
+                    <LinkList count="2">
+                        <Link value="Catch"/>
+                        <Link value="Counterplate"/>
+                    </LinkList>
+                </Property>
+                <Property name="Label" type="App::PropertyString">
+                    <String value="MagneticCatch_Assembly"/>
+                </Property>
+                <Property name="Origin" type="App::PropertyLink" status="67108864">
+                    <Link value="Origin"/>
+                </Property>
+                <Property name="Placement" type="App::PropertyPlacement">
+                    <PropertyPlacement Px="0" Py="0" Pz="0" Q0="0" Q1="0" Q2="0" Q3="1" A="0" Ox="0" Oy="0" Oz="1"/>
+                </Property>
+                <Property name="Visibility" type="App::PropertyBool">
+                    <Bool value="true"/>
+                </Property>
+            </Properties>
+        </Object>
+        <Object name="Origin" Extensions="True">
+            <Extensions Count="1">
+                <Extension type="App::GeoFeatureGroupExtension" name="GeoFeatureGroupExtension">
+                </Extension>
+            </Extensions>
+            <Properties Count="3" TransientCount="0">
+                <Property name="Label" type="App::PropertyString">
+                    <String value="Origin"/>
+                </Property>
+                <Property name="OriginFeatures" type="App::PropertyLinkList" status="67108864">
+                    <LinkList count="6">
+                        <Link value="X_Axis"/>
+                        <Link value="Y_Axis"/>
+                        <Link value="Z_Axis"/>
+                        <Link value="XY_Plane"/>
+                        <Link value="XZ_Plane"/>
+                        <Link value="YZ_Plane"/>
+                    </LinkList>
+                </Property>
+                <Property name="Visibility" type="App::PropertyBool">
+                    <Bool value="false"/>
+                </Property>
+            </Properties>
+        </Object>
+        <Object name="X_Axis">
+            <Properties Count="4" TransientCount="0">
+                <Property name="Label" type="App::PropertyString"><String value="X-axis"/></Property>
+                <Property name="Placement" type="App::PropertyPlacement"><PropertyPlacement Px="0" Py="0" Pz="0" Q0="0" Q1="0" Q2="0" Q3="1" A="0" Ox="0" Oy="0" Oz="1"/></Property>
+                <Property name="Role" type="App::PropertyString"><String value="X_Axis"/></Property>
+                <Property name="Visibility" type="App::PropertyBool"><Bool value="false"/></Property>
+            </Properties>
+        </Object>
+        <Object name="Y_Axis">
+            <Properties Count="4" TransientCount="0">
+                <Property name="Label" type="App::PropertyString"><String value="Y-axis"/></Property>
+                <Property name="Placement" type="App::PropertyPlacement"><PropertyPlacement Px="0" Py="0" Pz="0" Q0="0.5" Q1="0.5" Q2="0.5" Q3="0.5" A="2.0943951023931953" Ox="1" Oy="1" Oz="1"/></Property>
+                <Property name="Role" type="App::PropertyString"><String value="Y_Axis"/></Property>
+                <Property name="Visibility" type="App::PropertyBool"><Bool value="false"/></Property>
+            </Properties>
+        </Object>
+        <Object name="Z_Axis">
+            <Properties Count="4" TransientCount="0">
+                <Property name="Label" type="App::PropertyString"><String value="Z-axis"/></Property>
+                <Property name="Placement" type="App::PropertyPlacement"><PropertyPlacement Px="0" Py="0" Pz="0" Q0="0.5" Q1="-0.5" Q2="0.5" Q3="0.5" A="2.0943951023931953" Ox="1" Oy="-1" Oz="1"/></Property>
+                <Property name="Role" type="App::PropertyString"><String value="Z_Axis"/></Property>
+                <Property name="Visibility" type="App::PropertyBool"><Bool value="false"/></Property>
+            </Properties>
+        </Object>
+        <Object name="XY_Plane">
+            <Properties Count="4" TransientCount="0">
+                <Property name="Label" type="App::PropertyString"><String value="XY-plane"/></Property>
+                <Property name="Placement" type="App::PropertyPlacement"><PropertyPlacement Px="0" Py="0" Pz="0" Q0="0" Q1="0" Q2="0" Q3="1" A="0" Ox="0" Oy="0" Oz="1"/></Property>
+                <Property name="Role" type="App::PropertyString"><String value="XY_Plane"/></Property>
+                <Property name="Visibility" type="App::PropertyBool"><Bool value="false"/></Property>
+            </Properties>
+        </Object>
+        <Object name="XZ_Plane">
+            <Properties Count="4" TransientCount="0">
+                <Property name="Label" type="App::PropertyString"><String value="XZ-plane"/></Property>
+                <Property name="Placement" type="App::PropertyPlacement"><PropertyPlacement Px="0" Py="0" Pz="0" Q0="0.7071067811865475" Q1="0" Q2="0" Q3="0.7071067811865475" A="1.5707963267948966" Ox="1" Oy="0" Oz="0"/></Property>
+                <Property name="Role" type="App::PropertyString"><String value="XZ_Plane"/></Property>
+                <Property name="Visibility" type="App::PropertyBool"><Bool value="false"/></Property>
+            </Properties>
+        </Object>
+        <Object name="YZ_Plane">
+            <Properties Count="4" TransientCount="0">
+                <Property name="Label" type="App::PropertyString"><String value="YZ-plane"/></Property>
+                <Property name="Placement" type="App::PropertyPlacement"><PropertyPlacement Px="0" Py="0" Pz="0" Q0="0.5" Q1="0.5" Q2="0.5" Q3="0.5" A="2.0943951023931953" Ox="1" Oy="1" Oz="1"/></Property>
+                <Property name="Role" type="App::PropertyString"><String value="YZ_Plane"/></Property>
+                <Property name="Visibility" type="App::PropertyBool"><Bool value="false"/></Property>
+            </Properties>
+        </Object>
+<!-- ============================ CATCH (housing + magnet system) ============================ -->
+        <Object name="Catch" Extensions="True">
+            <Extensions Count="1">
+                <Extension type="App::OriginGroupExtension" name="OriginGroupExtension">
+                </Extension>
+            </Extensions>
+            <Properties Count="5" TransientCount="0">
+                <Property name="Group" type="App::PropertyLinkList">
+                    <LinkList count="18">
+                        <Link value="Flange"/>
+                        <Link value="Tower"/>
+                        <Link value="HousingBlank"/>
+                        <Link value="SlotL_Core"/>
+                        <Link value="SlotL_End1"/>
+                        <Link value="SlotL_End2"/>
+                        <Link value="SlotCutterL"/>
+                        <Link value="SlotR_Core"/>
+                        <Link value="SlotR_End1"/>
+                        <Link value="SlotR_End2"/>
+                        <Link value="SlotCutterR"/>
+                        <Link value="Pocket"/>
+                        <Link value="HousingCut1"/>
+                        <Link value="HousingCut2"/>
+                        <Link value="Housing"/>
+                        <Link value="Magnet"/>
+                        <Link value="PolePlateLower"/>
+                        <Link value="PolePlateUpper"/>
+                    </LinkList>
+                </Property>
+                <Property name="Label" type="App::PropertyString">
+                    <String value="Catch_89261"/>
+                </Property>
+                <Property name="Origin" type="App::PropertyLink" status="67108864">
+                    <Link value="Origin001"/>
+                </Property>
+                <Property name="Placement" type="App::PropertyPlacement">
+                    <PropertyPlacement Px="0" Py="0" Pz="0" Q0="0" Q1="0" Q2="0" Q3="1" A="0" Ox="0" Oy="0" Oz="1"/>
+                </Property>
+                <Property name="Visibility" type="App::PropertyBool">
+                    <Bool value="true"/>
+                </Property>
+            </Properties>
+        </Object>
+        <Object name="Origin001" Extensions="True">
+            <Extensions Count="1">
+                <Extension type="App::GeoFeatureGroupExtension" name="GeoFeatureGroupExtension">
+                </Extension>
+            </Extensions>
+            <Properties Count="3" TransientCount="0">
+                <Property name="Label" type="App::PropertyString">
+                    <String value="Origin001"/>
+                </Property>
+                <Property name="OriginFeatures" type="App::PropertyLinkList" status="67108864">
+                    <LinkList count="6">
+                        <Link value="X_Axis001"/>
+                        <Link value="Y_Axis001"/>
+                        <Link value="Z_Axis001"/>
+                        <Link value="XY_Plane001"/>
+                        <Link value="XZ_Plane001"/>
+                        <Link value="YZ_Plane001"/>
+                    </LinkList>
+                </Property>
+                <Property name="Visibility" type="App::PropertyBool">
+                    <Bool value="false"/>
+                </Property>
+            </Properties>
+        </Object>
+        <Object name="X_Axis001">
+            <Properties Count="4" TransientCount="0">
+                <Property name="Label" type="App::PropertyString"><String value="X-axis001"/></Property>
+                <Property name="Placement" type="App::PropertyPlacement"><PropertyPlacement Px="0" Py="0" Pz="0" Q0="0" Q1="0" Q2="0" Q3="1" A="0" Ox="0" Oy="0" Oz="1"/></Property>
+                <Property name="Role" type="App::PropertyString"><String value="X_Axis"/></Property>
+                <Property name="Visibility" type="App::PropertyBool"><Bool value="false"/></Property>
+            </Properties>
+        </Object>
+        <Object name="Y_Axis001">
+            <Properties Count="4" TransientCount="0">
+                <Property name="Label" type="App::PropertyString"><String value="Y-axis001"/></Property>
+                <Property name="Placement" type="App::PropertyPlacement"><PropertyPlacement Px="0" Py="0" Pz="0" Q0="0.5" Q1="0.5" Q2="0.5" Q3="0.5" A="2.0943951023931953" Ox="1" Oy="1" Oz="1"/></Property>
+                <Property name="Role" type="App::PropertyString"><String value="Y_Axis"/></Property>
+                <Property name="Visibility" type="App::PropertyBool"><Bool value="false"/></Property>
+            </Properties>
+        </Object>
+        <Object name="Z_Axis001">
+            <Properties Count="4" TransientCount="0">
+                <Property name="Label" type="App::PropertyString"><String value="Z-axis001"/></Property>
+                <Property name="Placement" type="App::PropertyPlacement"><PropertyPlacement Px="0" Py="0" Pz="0" Q0="0.5" Q1="-0.5" Q2="0.5" Q3="0.5" A="2.0943951023931953" Ox="1" Oy="-1" Oz="1"/></Property>
+                <Property name="Role" type="App::PropertyString"><String value="Z_Axis"/></Property>
+                <Property name="Visibility" type="App::PropertyBool"><Bool value="false"/></Property>
+            </Properties>
+        </Object>
+        <Object name="XY_Plane001">
+            <Properties Count="4" TransientCount="0">
+                <Property name="Label" type="App::PropertyString"><String value="XY-plane001"/></Property>
+                <Property name="Placement" type="App::PropertyPlacement"><PropertyPlacement Px="0" Py="0" Pz="0" Q0="0" Q1="0" Q2="0" Q3="1" A="0" Ox="0" Oy="0" Oz="1"/></Property>
+                <Property name="Role" type="App::PropertyString"><String value="XY_Plane"/></Property>
+                <Property name="Visibility" type="App::PropertyBool"><Bool value="false"/></Property>
+            </Properties>
+        </Object>
+        <Object name="XZ_Plane001">
+            <Properties Count="4" TransientCount="0">
+                <Property name="Label" type="App::PropertyString"><String value="XZ-plane001"/></Property>
+                <Property name="Placement" type="App::PropertyPlacement"><PropertyPlacement Px="0" Py="0" Pz="0" Q0="0.7071067811865475" Q1="0" Q2="0" Q3="0.7071067811865475" A="1.5707963267948966" Ox="1" Oy="0" Oz="0"/></Property>
+                <Property name="Role" type="App::PropertyString"><String value="XZ_Plane"/></Property>
+                <Property name="Visibility" type="App::PropertyBool"><Bool value="false"/></Property>
+            </Properties>
+        </Object>
+        <Object name="YZ_Plane001">
+            <Properties Count="4" TransientCount="0">
+                <Property name="Label" type="App::PropertyString"><String value="YZ-plane001"/></Property>
+                <Property name="Placement" type="App::PropertyPlacement"><PropertyPlacement Px="0" Py="0" Pz="0" Q0="0.5" Q1="0.5" Q2="0.5" Q3="0.5" A="2.0943951023931953" Ox="1" Oy="1" Oz="1"/></Property>
+                <Property name="Role" type="App::PropertyString"><String value="YZ_Plane"/></Property>
+                <Property name="Visibility" type="App::PropertyBool"><Bool value="false"/></Property>
+            </Properties>
+        </Object>
+        <!-- Screw flange: full length, full depth, sits on the mounting face -->
+        <Object name="Flange">
+            <Properties Count="7" TransientCount="0">
+                <Property name="ExpressionEngine" type="App::PropertyExpressionEngine">
+                    <ExpressionEngine count="4">
+                        <Expression path="Length" expression="Params.HsgLength"/>
+                        <Expression path="Width" expression="Params.HsgDepth"/>
+                        <Expression path="Height" expression="Params.FlangeThk"/>
+                        <Expression path=".Placement.Base.x" expression="-Params.HsgLength / 2"/>
+                    </ExpressionEngine>
+                </Property>
+                <Property name="Label" type="App::PropertyString"><String value="Flange"/></Property>
+                <Property name="Length" type="App::PropertyLength"><Float value="45"/></Property>
+                <Property name="Width" type="App::PropertyLength"><Float value="14"/></Property>
+                <Property name="Height" type="App::PropertyLength"><Float value="4.3"/></Property>
+                <Property name="Placement" type="App::PropertyPlacement"><PropertyPlacement Px="-22.5" Py="0" Pz="0" Q0="0" Q1="0" Q2="0" Q3="1" A="0" Ox="0" Oy="0" Oz="1"/></Property>
+                <Property name="Visibility" type="App::PropertyBool"><Bool value="false"/></Property>
+            </Properties>
+        </Object>
+        <!-- Magnet tower: centred, full depth, full height -->
+        <Object name="Tower">
+            <Properties Count="7" TransientCount="0">
+                <Property name="ExpressionEngine" type="App::PropertyExpressionEngine">
+                    <ExpressionEngine count="4">
+                        <Expression path="Length" expression="Params.TowerLength"/>
+                        <Expression path="Width" expression="Params.HsgDepth"/>
+                        <Expression path="Height" expression="Params.HsgHeight"/>
+                        <Expression path=".Placement.Base.x" expression="-Params.TowerLength / 2"/>
+                    </ExpressionEngine>
+                </Property>
+                <Property name="Label" type="App::PropertyString"><String value="Tower"/></Property>
+                <Property name="Length" type="App::PropertyLength"><Float value="27.2"/></Property>
+                <Property name="Width" type="App::PropertyLength"><Float value="14"/></Property>
+                <Property name="Height" type="App::PropertyLength"><Float value="13.3"/></Property>
+                <Property name="Placement" type="App::PropertyPlacement"><PropertyPlacement Px="-13.6" Py="0" Pz="0" Q0="0" Q1="0" Q2="0" Q3="1" A="0" Ox="0" Oy="0" Oz="1"/></Property>
+                <Property name="Visibility" type="App::PropertyBool"><Bool value="false"/></Property>
+            </Properties>
+        </Object>
+        <Object name="HousingBlank">
+            <Properties Count="5" TransientCount="0">
+                <Property name="Base" type="App::PropertyLink"><Link value="Flange"/></Property>
+                <Property name="Label" type="App::PropertyString"><String value="HousingBlank"/></Property>
+                <Property name="Refine" type="App::PropertyBool"><Bool value="true"/></Property>
+                <Property name="Tool" type="App::PropertyLink"><Link value="Tower"/></Property>
+                <Property name="Visibility" type="App::PropertyBool"><Bool value="false"/></Property>
+            </Properties>
+        </Object>
+        <!-- Left screw slot cutter: straight core + two end cylinders, runs along Y (depth adjustment) -->
+        <Object name="SlotL_Core">
+            <Properties Count="7" TransientCount="0">
+                <Property name="ExpressionEngine" type="App::PropertyExpressionEngine">
+                    <ExpressionEngine count="6">
+                        <Expression path="Length" expression="Params.SlotWidth"/>
+                        <Expression path="Width" expression="Params.SlotStraight"/>
+                        <Expression path="Height" expression="Params.FlangeThk + 2"/>
+                        <Expression path=".Placement.Base.x" expression="-Params.SlotPitch / 2 - Params.SlotWidth / 2"/>
+                        <Expression path=".Placement.Base.y" expression="Params.SlotY - Params.SlotStraight / 2"/>
+                        <Expression path=".Placement.Base.z" expression="-1"/>
+                    </ExpressionEngine>
+                </Property>
+                <Property name="Label" type="App::PropertyString"><String value="SlotL_Core"/></Property>
+                <Property name="Length" type="App::PropertyLength"><Float value="3"/></Property>
+                <Property name="Width" type="App::PropertyLength"><Float value="3"/></Property>
+                <Property name="Height" type="App::PropertyLength"><Float value="6.3"/></Property>
+                <Property name="Placement" type="App::PropertyPlacement"><PropertyPlacement Px="-20" Py="4.5" Pz="-1" Q0="0" Q1="0" Q2="0" Q3="1" A="0" Ox="0" Oy="0" Oz="1"/></Property>
+                <Property name="Visibility" type="App::PropertyBool"><Bool value="false"/></Property>
+            </Properties>
+        </Object>
+        <Object name="SlotL_End1">
+            <Properties Count="6" TransientCount="0">
+                <Property name="ExpressionEngine" type="App::PropertyExpressionEngine">
+                    <ExpressionEngine count="5">
+                        <Expression path="Radius" expression="Params.SlotWidth / 2"/>
+                        <Expression path="Height" expression="Params.FlangeThk + 2"/>
+                        <Expression path=".Placement.Base.x" expression="-Params.SlotPitch / 2"/>
+                        <Expression path=".Placement.Base.y" expression="Params.SlotY - Params.SlotStraight / 2"/>
+                        <Expression path=".Placement.Base.z" expression="-1"/>
+                    </ExpressionEngine>
+                </Property>
+                <Property name="Label" type="App::PropertyString"><String value="SlotL_End1"/></Property>
+                <Property name="Radius" type="App::PropertyLength"><Float value="1.5"/></Property>
+                <Property name="Height" type="App::PropertyLength"><Float value="6.3"/></Property>
+                <Property name="Placement" type="App::PropertyPlacement"><PropertyPlacement Px="-18.5" Py="4.5" Pz="-1" Q0="0" Q1="0" Q2="0" Q3="1" A="0" Ox="0" Oy="0" Oz="1"/></Property>
+                <Property name="Visibility" type="App::PropertyBool"><Bool value="false"/></Property>
+            </Properties>
+        </Object>
+        <Object name="SlotL_End2">
+            <Properties Count="6" TransientCount="0">
+                <Property name="ExpressionEngine" type="App::PropertyExpressionEngine">
+                    <ExpressionEngine count="5">
+                        <Expression path="Radius" expression="Params.SlotWidth / 2"/>
+                        <Expression path="Height" expression="Params.FlangeThk + 2"/>
+                        <Expression path=".Placement.Base.x" expression="-Params.SlotPitch / 2"/>
+                        <Expression path=".Placement.Base.y" expression="Params.SlotY + Params.SlotStraight / 2"/>
+                        <Expression path=".Placement.Base.z" expression="-1"/>
+                    </ExpressionEngine>
+                </Property>
+                <Property name="Label" type="App::PropertyString"><String value="SlotL_End2"/></Property>
+                <Property name="Radius" type="App::PropertyLength"><Float value="1.5"/></Property>
+                <Property name="Height" type="App::PropertyLength"><Float value="6.3"/></Property>
+                <Property name="Placement" type="App::PropertyPlacement"><PropertyPlacement Px="-18.5" Py="7.5" Pz="-1" Q0="0" Q1="0" Q2="0" Q3="1" A="0" Ox="0" Oy="0" Oz="1"/></Property>
+                <Property name="Visibility" type="App::PropertyBool"><Bool value="false"/></Property>
+            </Properties>
+        </Object>
+        <Object name="SlotCutterL">
+            <Properties Count="4" TransientCount="0">
+                <Property name="Label" type="App::PropertyString"><String value="SlotCutterL"/></Property>
+                <Property name="Refine" type="App::PropertyBool"><Bool value="true"/></Property>
+                <Property name="Shapes" type="App::PropertyLinkList">
+                    <LinkList count="3">
+                        <Link value="SlotL_Core"/>
+                        <Link value="SlotL_End1"/>
+                        <Link value="SlotL_End2"/>
+                    </LinkList>
+                </Property>
+                <Property name="Visibility" type="App::PropertyBool"><Bool value="false"/></Property>
+            </Properties>
+        </Object>
+        <!-- Right screw slot cutter (mirror of the left one about X=0) -->
+        <Object name="SlotR_Core">
+            <Properties Count="7" TransientCount="0">
+                <Property name="ExpressionEngine" type="App::PropertyExpressionEngine">
+                    <ExpressionEngine count="6">
+                        <Expression path="Length" expression="Params.SlotWidth"/>
+                        <Expression path="Width" expression="Params.SlotStraight"/>
+                        <Expression path="Height" expression="Params.FlangeThk + 2"/>
+                        <Expression path=".Placement.Base.x" expression="Params.SlotPitch / 2 - Params.SlotWidth / 2"/>
+                        <Expression path=".Placement.Base.y" expression="Params.SlotY - Params.SlotStraight / 2"/>
+                        <Expression path=".Placement.Base.z" expression="-1"/>
+                    </ExpressionEngine>
+                </Property>
+                <Property name="Label" type="App::PropertyString"><String value="SlotR_Core"/></Property>
+                <Property name="Length" type="App::PropertyLength"><Float value="3"/></Property>
+                <Property name="Width" type="App::PropertyLength"><Float value="3"/></Property>
+                <Property name="Height" type="App::PropertyLength"><Float value="6.3"/></Property>
+                <Property name="Placement" type="App::PropertyPlacement"><PropertyPlacement Px="17" Py="4.5" Pz="-1" Q0="0" Q1="0" Q2="0" Q3="1" A="0" Ox="0" Oy="0" Oz="1"/></Property>
+                <Property name="Visibility" type="App::PropertyBool"><Bool value="false"/></Property>
+            </Properties>
+        </Object>
+        <Object name="SlotR_End1">
+            <Properties Count="6" TransientCount="0">
+                <Property name="ExpressionEngine" type="App::PropertyExpressionEngine">
+                    <ExpressionEngine count="5">
+                        <Expression path="Radius" expression="Params.SlotWidth / 2"/>
+                        <Expression path="Height" expression="Params.FlangeThk + 2"/>
+                        <Expression path=".Placement.Base.x" expression="Params.SlotPitch / 2"/>
+                        <Expression path=".Placement.Base.y" expression="Params.SlotY - Params.SlotStraight / 2"/>
+                        <Expression path=".Placement.Base.z" expression="-1"/>
+                    </ExpressionEngine>
+                </Property>
+                <Property name="Label" type="App::PropertyString"><String value="SlotR_End1"/></Property>
+                <Property name="Radius" type="App::PropertyLength"><Float value="1.5"/></Property>
+                <Property name="Height" type="App::PropertyLength"><Float value="6.3"/></Property>
+                <Property name="Placement" type="App::PropertyPlacement"><PropertyPlacement Px="18.5" Py="4.5" Pz="-1" Q0="0" Q1="0" Q2="0" Q3="1" A="0" Ox="0" Oy="0" Oz="1"/></Property>
+                <Property name="Visibility" type="App::PropertyBool"><Bool value="false"/></Property>
+            </Properties>
+        </Object>
+        <Object name="SlotR_End2">
+            <Properties Count="6" TransientCount="0">
+                <Property name="ExpressionEngine" type="App::PropertyExpressionEngine">
+                    <ExpressionEngine count="5">
+                        <Expression path="Radius" expression="Params.SlotWidth / 2"/>
+                        <Expression path="Height" expression="Params.FlangeThk + 2"/>
+                        <Expression path=".Placement.Base.x" expression="Params.SlotPitch / 2"/>
+                        <Expression path=".Placement.Base.y" expression="Params.SlotY + Params.SlotStraight / 2"/>
+                        <Expression path=".Placement.Base.z" expression="-1"/>
+                    </ExpressionEngine>
+                </Property>
+                <Property name="Label" type="App::PropertyString"><String value="SlotR_End2"/></Property>
+                <Property name="Radius" type="App::PropertyLength"><Float value="1.5"/></Property>
+                <Property name="Height" type="App::PropertyLength"><Float value="6.3"/></Property>
+                <Property name="Placement" type="App::PropertyPlacement"><PropertyPlacement Px="18.5" Py="7.5" Pz="-1" Q0="0" Q1="0" Q2="0" Q3="1" A="0" Ox="0" Oy="0" Oz="1"/></Property>
+                <Property name="Visibility" type="App::PropertyBool"><Bool value="false"/></Property>
+            </Properties>
+        </Object>
+        <Object name="SlotCutterR">
+            <Properties Count="4" TransientCount="0">
+                <Property name="Label" type="App::PropertyString"><String value="SlotCutterR"/></Property>
+                <Property name="Refine" type="App::PropertyBool"><Bool value="true"/></Property>
+                <Property name="Shapes" type="App::PropertyLinkList">
+                    <LinkList count="3">
+                        <Link value="SlotR_Core"/>
+                        <Link value="SlotR_End1"/>
+                        <Link value="SlotR_End2"/>
+                    </LinkList>
+                </Property>
+                <Property name="Visibility" type="App::PropertyBool"><Bool value="false"/></Property>
+            </Properties>
+        </Object>
+        <!-- Magnet pocket in the tower front: takes the pole plates and the magnet; 1 mm overshoot in front -->
+        <Object name="Pocket">
+            <Properties Count="7" TransientCount="0">
+                <Property name="ExpressionEngine" type="App::PropertyExpressionEngine">
+                    <ExpressionEngine count="6">
+                        <Expression path="Length" expression="Params.PoleLength"/>
+                        <Expression path="Width" expression="Params.PocketDepth + 1"/>
+                        <Expression path="Height" expression="Params.PocketHeight"/>
+                        <Expression path=".Placement.Base.x" expression="-Params.PoleLength / 2"/>
+                        <Expression path=".Placement.Base.y" expression="-1"/>
+                        <Expression path=".Placement.Base.z" expression="Params.FlangeThk"/>
+                    </ExpressionEngine>
+                </Property>
+                <Property name="Label" type="App::PropertyString"><String value="Pocket"/></Property>
+                <Property name="Length" type="App::PropertyLength"><Float value="24.5"/></Property>
+                <Property name="Width" type="App::PropertyLength"><Float value="11"/></Property>
+                <Property name="Height" type="App::PropertyLength"><Float value="7.5"/></Property>
+                <Property name="Placement" type="App::PropertyPlacement"><PropertyPlacement Px="-12.25" Py="-1" Pz="4.3" Q0="0" Q1="0" Q2="0" Q3="1" A="0" Ox="0" Oy="0" Oz="1"/></Property>
+                <Property name="Visibility" type="App::PropertyBool"><Bool value="false"/></Property>
+            </Properties>
+        </Object>
+        <Object name="HousingCut1">
+            <Properties Count="5" TransientCount="0">
+                <Property name="Base" type="App::PropertyLink"><Link value="HousingBlank"/></Property>
+                <Property name="Label" type="App::PropertyString"><String value="HousingCut1"/></Property>
+                <Property name="Refine" type="App::PropertyBool"><Bool value="true"/></Property>
+                <Property name="Tool" type="App::PropertyLink"><Link value="SlotCutterL"/></Property>
+                <Property name="Visibility" type="App::PropertyBool"><Bool value="false"/></Property>
+            </Properties>
+        </Object>
+        <Object name="HousingCut2">
+            <Properties Count="5" TransientCount="0">
+                <Property name="Base" type="App::PropertyLink"><Link value="HousingCut1"/></Property>
+                <Property name="Label" type="App::PropertyString"><String value="HousingCut2"/></Property>
+                <Property name="Refine" type="App::PropertyBool"><Bool value="true"/></Property>
+                <Property name="Tool" type="App::PropertyLink"><Link value="SlotCutterR"/></Property>
+                <Property name="Visibility" type="App::PropertyBool"><Bool value="false"/></Property>
+            </Properties>
+        </Object>
+        <!-- Finished white plastic housing -->
+        <Object name="Housing">
+            <Properties Count="5" TransientCount="0">
+                <Property name="Base" type="App::PropertyLink"><Link value="HousingCut2"/></Property>
+                <Property name="Label" type="App::PropertyString"><String value="Housing"/></Property>
+                <Property name="Refine" type="App::PropertyBool"><Bool value="true"/></Property>
+                <Property name="Tool" type="App::PropertyLink"><Link value="Pocket"/></Property>
+                <Property name="Visibility" type="App::PropertyBool"><Bool value="true"/></Property>
+            </Properties>
+        </Object>
+        <!-- Ferrite magnet between the pole plates, front flush with the housing face -->
+        <Object name="Magnet">
+            <Properties Count="7" TransientCount="0">
+                <Property name="ExpressionEngine" type="App::PropertyExpressionEngine">
+                    <ExpressionEngine count="5">
+                        <Expression path="Length" expression="Params.PoleLength"/>
+                        <Expression path="Width" expression="Params.PocketDepth"/>
+                        <Expression path="Height" expression="Params.MagnetHeight"/>
+                        <Expression path=".Placement.Base.x" expression="-Params.PoleLength / 2"/>
+                        <Expression path=".Placement.Base.z" expression="Params.FlangeThk + Params.PoleThk"/>
+                    </ExpressionEngine>
+                </Property>
+                <Property name="Label" type="App::PropertyString"><String value="Magnet"/></Property>
+                <Property name="Length" type="App::PropertyLength"><Float value="24.5"/></Property>
+                <Property name="Width" type="App::PropertyLength"><Float value="10"/></Property>
+                <Property name="Height" type="App::PropertyLength"><Float value="5"/></Property>
+                <Property name="Placement" type="App::PropertyPlacement"><PropertyPlacement Px="-12.25" Py="0" Pz="5.55" Q0="0" Q1="0" Q2="0" Q3="1" A="0" Ox="0" Oy="0" Oz="1"/></Property>
+                <Property name="Visibility" type="App::PropertyBool"><Bool value="true"/></Property>
+            </Properties>
+        </Object>
+        <!-- Steel pole plates, standing PoleProtrusion proud of the housing face -->
+        <Object name="PolePlateLower">
+            <Properties Count="7" TransientCount="0">
+                <Property name="ExpressionEngine" type="App::PropertyExpressionEngine">
+                    <ExpressionEngine count="6">
+                        <Expression path="Length" expression="Params.PoleLength"/>
+                        <Expression path="Width" expression="Params.PocketDepth + Params.PoleProtrusion"/>
+                        <Expression path="Height" expression="Params.PoleThk"/>
+                        <Expression path=".Placement.Base.x" expression="-Params.PoleLength / 2"/>
+                        <Expression path=".Placement.Base.y" expression="-Params.PoleProtrusion"/>
+                        <Expression path=".Placement.Base.z" expression="Params.FlangeThk"/>
+                    </ExpressionEngine>
+                </Property>
+                <Property name="Label" type="App::PropertyString"><String value="PolePlate_Lower"/></Property>
+                <Property name="Length" type="App::PropertyLength"><Float value="24.5"/></Property>
+                <Property name="Width" type="App::PropertyLength"><Float value="11"/></Property>
+                <Property name="Height" type="App::PropertyLength"><Float value="1.25"/></Property>
+                <Property name="Placement" type="App::PropertyPlacement"><PropertyPlacement Px="-12.25" Py="-1" Pz="4.3" Q0="0" Q1="0" Q2="0" Q3="1" A="0" Ox="0" Oy="0" Oz="1"/></Property>
+                <Property name="Visibility" type="App::PropertyBool"><Bool value="true"/></Property>
+            </Properties>
+        </Object>
+        <Object name="PolePlateUpper">
+            <Properties Count="7" TransientCount="0">
+                <Property name="ExpressionEngine" type="App::PropertyExpressionEngine">
+                    <ExpressionEngine count="6">
+                        <Expression path="Length" expression="Params.PoleLength"/>
+                        <Expression path="Width" expression="Params.PocketDepth + Params.PoleProtrusion"/>
+                        <Expression path="Height" expression="Params.PoleThk"/>
+                        <Expression path=".Placement.Base.x" expression="-Params.PoleLength / 2"/>
+                        <Expression path=".Placement.Base.y" expression="-Params.PoleProtrusion"/>
+                        <Expression path=".Placement.Base.z" expression="Params.FlangeThk + Params.PoleThk + Params.MagnetHeight"/>
+                    </ExpressionEngine>
+                </Property>
+                <Property name="Label" type="App::PropertyString"><String value="PolePlate_Upper"/></Property>
+                <Property name="Length" type="App::PropertyLength"><Float value="24.5"/></Property>
+                <Property name="Width" type="App::PropertyLength"><Float value="11"/></Property>
+                <Property name="Height" type="App::PropertyLength"><Float value="1.25"/></Property>
+                <Property name="Placement" type="App::PropertyPlacement"><PropertyPlacement Px="-12.25" Py="-1" Pz="10.55" Q0="0" Q1="0" Q2="0" Q3="1" A="0" Ox="0" Oy="0" Oz="1"/></Property>
+                <Property name="Visibility" type="App::PropertyBool"><Bool value="true"/></Property>
+            </Properties>
+        </Object>
+<!-- ============================ COUNTERPLATE (door side) ============================ -->
+        <!-- Local frame: plate in the XZ plane, door-side face at y=0, countersinks open towards +Y (magnet).
+             The Part placement mates it onto the pole plates, DoorGap away. -->
+        <Object name="Counterplate" Extensions="True">
+            <Extensions Count="1">
+                <Extension type="App::OriginGroupExtension" name="OriginGroupExtension">
+                </Extension>
+            </Extensions>
+            <Properties Count="6" TransientCount="0">
+                <Property name="ExpressionEngine" type="App::PropertyExpressionEngine">
+                    <ExpressionEngine count="2">
+                        <Expression path=".Placement.Base.y" expression="-Params.PoleProtrusion - Params.DoorGap - Params.PlateThk"/>
+                        <Expression path=".Placement.Base.z" expression="Params.MagnetCenterZ"/>
+                    </ExpressionEngine>
+                </Property>
+                <Property name="Group" type="App::PropertyLinkList">
+                    <LinkList count="12">
+                        <Link value="PlateCore"/>
+                        <Link value="PlateEndL"/>
+                        <Link value="PlateEndR"/>
+                        <Link value="PlateBlank"/>
+                        <Link value="HoleL"/>
+                        <Link value="HoleR"/>
+                        <Link value="CskL"/>
+                        <Link value="CskR"/>
+                        <Link value="PlateCut1"/>
+                        <Link value="PlateCut2"/>
+                        <Link value="PlateCut3"/>
+                        <Link value="Plate"/>
+                    </LinkList>
+                </Property>
+                <Property name="Label" type="App::PropertyString">
+                    <String value="Counterplate_89262"/>
+                </Property>
+                <Property name="Origin" type="App::PropertyLink" status="67108864">
+                    <Link value="Origin002"/>
+                </Property>
+                <Property name="Placement" type="App::PropertyPlacement">
+                    <PropertyPlacement Px="0" Py="-2.2" Pz="8.05" Q0="0" Q1="0" Q2="0" Q3="1" A="0" Ox="0" Oy="0" Oz="1"/>
+                </Property>
+                <Property name="Visibility" type="App::PropertyBool">
+                    <Bool value="true"/>
+                </Property>
+            </Properties>
+        </Object>
+        <Object name="Origin002" Extensions="True">
+            <Extensions Count="1">
+                <Extension type="App::GeoFeatureGroupExtension" name="GeoFeatureGroupExtension">
+                </Extension>
+            </Extensions>
+            <Properties Count="3" TransientCount="0">
+                <Property name="Label" type="App::PropertyString">
+                    <String value="Origin002"/>
+                </Property>
+                <Property name="OriginFeatures" type="App::PropertyLinkList" status="67108864">
+                    <LinkList count="6">
+                        <Link value="X_Axis002"/>
+                        <Link value="Y_Axis002"/>
+                        <Link value="Z_Axis002"/>
+                        <Link value="XY_Plane002"/>
+                        <Link value="XZ_Plane002"/>
+                        <Link value="YZ_Plane002"/>
+                    </LinkList>
+                </Property>
+                <Property name="Visibility" type="App::PropertyBool">
+                    <Bool value="false"/>
+                </Property>
+            </Properties>
+        </Object>
+        <Object name="X_Axis002">
+            <Properties Count="4" TransientCount="0">
+                <Property name="Label" type="App::PropertyString"><String value="X-axis002"/></Property>
+                <Property name="Placement" type="App::PropertyPlacement"><PropertyPlacement Px="0" Py="0" Pz="0" Q0="0" Q1="0" Q2="0" Q3="1" A="0" Ox="0" Oy="0" Oz="1"/></Property>
+                <Property name="Role" type="App::PropertyString"><String value="X_Axis"/></Property>
+                <Property name="Visibility" type="App::PropertyBool"><Bool value="false"/></Property>
+            </Properties>
+        </Object>
+        <Object name="Y_Axis002">
+            <Properties Count="4" TransientCount="0">
+                <Property name="Label" type="App::PropertyString"><String value="Y-axis002"/></Property>
+                <Property name="Placement" type="App::PropertyPlacement"><PropertyPlacement Px="0" Py="0" Pz="0" Q0="0.5" Q1="0.5" Q2="0.5" Q3="0.5" A="2.0943951023931953" Ox="1" Oy="1" Oz="1"/></Property>
+                <Property name="Role" type="App::PropertyString"><String value="Y_Axis"/></Property>
+                <Property name="Visibility" type="App::PropertyBool"><Bool value="false"/></Property>
+            </Properties>
+        </Object>
+        <Object name="Z_Axis002">
+            <Properties Count="4" TransientCount="0">
+                <Property name="Label" type="App::PropertyString"><String value="Z-axis002"/></Property>
+                <Property name="Placement" type="App::PropertyPlacement"><PropertyPlacement Px="0" Py="0" Pz="0" Q0="0.5" Q1="-0.5" Q2="0.5" Q3="0.5" A="2.0943951023931953" Ox="1" Oy="-1" Oz="1"/></Property>
+                <Property name="Role" type="App::PropertyString"><String value="Z_Axis"/></Property>
+                <Property name="Visibility" type="App::PropertyBool"><Bool value="false"/></Property>
+            </Properties>
+        </Object>
+        <Object name="XY_Plane002">
+            <Properties Count="4" TransientCount="0">
+                <Property name="Label" type="App::PropertyString"><String value="XY-plane002"/></Property>
+                <Property name="Placement" type="App::PropertyPlacement"><PropertyPlacement Px="0" Py="0" Pz="0" Q0="0" Q1="0" Q2="0" Q3="1" A="0" Ox="0" Oy="0" Oz="1"/></Property>
+                <Property name="Role" type="App::PropertyString"><String value="XY_Plane"/></Property>
+                <Property name="Visibility" type="App::PropertyBool"><Bool value="false"/></Property>
+            </Properties>
+        </Object>
+        <Object name="XZ_Plane002">
+            <Properties Count="4" TransientCount="0">
+                <Property name="Label" type="App::PropertyString"><String value="XZ-plane002"/></Property>
+                <Property name="Placement" type="App::PropertyPlacement"><PropertyPlacement Px="0" Py="0" Pz="0" Q0="0.7071067811865475" Q1="0" Q2="0" Q3="0.7071067811865475" A="1.5707963267948966" Ox="1" Oy="0" Oz="0"/></Property>
+                <Property name="Role" type="App::PropertyString"><String value="XZ_Plane"/></Property>
+                <Property name="Visibility" type="App::PropertyBool"><Bool value="false"/></Property>
+            </Properties>
+        </Object>
+        <Object name="YZ_Plane002">
+            <Properties Count="4" TransientCount="0">
+                <Property name="Label" type="App::PropertyString"><String value="YZ-plane002"/></Property>
+                <Property name="Placement" type="App::PropertyPlacement"><PropertyPlacement Px="0" Py="0" Pz="0" Q0="0.5" Q1="0.5" Q2="0.5" Q3="0.5" A="2.0943951023931953" Ox="1" Oy="1" Oz="1"/></Property>
+                <Property name="Role" type="App::PropertyString"><String value="YZ_Plane"/></Property>
+                <Property name="Visibility" type="App::PropertyBool"><Bool value="false"/></Property>
+            </Properties>
+        </Object>
+        <!-- Stadium blank: straight core between the two end-radius centres + two half-round ends -->
+        <Object name="PlateCore">
+            <Properties Count="7" TransientCount="0">
+                <Property name="ExpressionEngine" type="App::PropertyExpressionEngine">
+                    <ExpressionEngine count="5">
+                        <Expression path="Length" expression="2 * Params.PlateEndOffset"/>
+                        <Expression path="Width" expression="Params.PlateThk"/>
+                        <Expression path="Height" expression="Params.PlateWidth"/>
+                        <Expression path=".Placement.Base.x" expression="-Params.PlateEndOffset"/>
+                        <Expression path=".Placement.Base.z" expression="-Params.PlateWidth / 2"/>
+                    </ExpressionEngine>
+                </Property>
+                <Property name="Label" type="App::PropertyString"><String value="PlateCore"/></Property>
+                <Property name="Length" type="App::PropertyLength"><Float value="26.2"/></Property>
+                <Property name="Width" type="App::PropertyLength"><Float value="1.2"/></Property>
+                <Property name="Height" type="App::PropertyLength"><Float value="11.8"/></Property>
+                <Property name="Placement" type="App::PropertyPlacement"><PropertyPlacement Px="-13.1" Py="0" Pz="-5.9" Q0="0" Q1="0" Q2="0" Q3="1" A="0" Ox="0" Oy="0" Oz="1"/></Property>
+                <Property name="Visibility" type="App::PropertyBool"><Bool value="false"/></Property>
+            </Properties>
+        </Object>
+        <Object name="PlateEndL">
+            <Properties Count="6" TransientCount="0">
+                <Property name="ExpressionEngine" type="App::PropertyExpressionEngine">
+                    <ExpressionEngine count="3">
+                        <Expression path="Radius" expression="Params.PlateWidth / 2"/>
+                        <Expression path="Height" expression="Params.PlateThk"/>
+                        <Expression path=".Placement.Base.x" expression="-Params.PlateEndOffset"/>
+                    </ExpressionEngine>
+                </Property>
+                <Property name="Label" type="App::PropertyString"><String value="PlateEndL"/></Property>
+                <Property name="Radius" type="App::PropertyLength"><Float value="5.9"/></Property>
+                <Property name="Height" type="App::PropertyLength"><Float value="1.2"/></Property>
+                <Property name="Placement" type="App::PropertyPlacement"><PropertyPlacement Px="-13.1" Py="0" Pz="0" Q0="-0.7071067811865476" Q1="0" Q2="0" Q3="0.7071067811865476" A="1.5707963267948966" Ox="-1" Oy="0" Oz="0"/></Property>
+                <Property name="Visibility" type="App::PropertyBool"><Bool value="false"/></Property>
+            </Properties>
+        </Object>
+        <Object name="PlateEndR">
+            <Properties Count="6" TransientCount="0">
+                <Property name="ExpressionEngine" type="App::PropertyExpressionEngine">
+                    <ExpressionEngine count="3">
+                        <Expression path="Radius" expression="Params.PlateWidth / 2"/>
+                        <Expression path="Height" expression="Params.PlateThk"/>
+                        <Expression path=".Placement.Base.x" expression="Params.PlateEndOffset"/>
+                    </ExpressionEngine>
+                </Property>
+                <Property name="Label" type="App::PropertyString"><String value="PlateEndR"/></Property>
+                <Property name="Radius" type="App::PropertyLength"><Float value="5.9"/></Property>
+                <Property name="Height" type="App::PropertyLength"><Float value="1.2"/></Property>
+                <Property name="Placement" type="App::PropertyPlacement"><PropertyPlacement Px="13.1" Py="0" Pz="0" Q0="-0.7071067811865476" Q1="0" Q2="0" Q3="0.7071067811865476" A="1.5707963267948966" Ox="-1" Oy="0" Oz="0"/></Property>
+                <Property name="Visibility" type="App::PropertyBool"><Bool value="false"/></Property>
+            </Properties>
+        </Object>
+        <Object name="PlateBlank">
+            <Properties Count="4" TransientCount="0">
+                <Property name="Label" type="App::PropertyString"><String value="PlateBlank"/></Property>
+                <Property name="Refine" type="App::PropertyBool"><Bool value="true"/></Property>
+                <Property name="Shapes" type="App::PropertyLinkList">
+                    <LinkList count="3">
+                        <Link value="PlateCore"/>
+                        <Link value="PlateEndL"/>
+                        <Link value="PlateEndR"/>
+                    </LinkList>
+                </Property>
+                <Property name="Visibility" type="App::PropertyBool"><Bool value="false"/></Property>
+            </Properties>
+        </Object>
+        <!-- Through holes (1 mm overshoot both faces) -->
+        <Object name="HoleL">
+            <Properties Count="6" TransientCount="0">
+                <Property name="ExpressionEngine" type="App::PropertyExpressionEngine">
+                    <ExpressionEngine count="4">
+                        <Expression path="Radius" expression="Params.HoleDia / 2"/>
+                        <Expression path="Height" expression="Params.PlateThk + 2"/>
+                        <Expression path=".Placement.Base.x" expression="-Params.HolePitch / 2"/>
+                        <Expression path=".Placement.Base.y" expression="-1"/>
+                    </ExpressionEngine>
+                </Property>
+                <Property name="Label" type="App::PropertyString"><String value="HoleL"/></Property>
+                <Property name="Radius" type="App::PropertyLength"><Float value="2.25"/></Property>
+                <Property name="Height" type="App::PropertyLength"><Float value="3.2"/></Property>
+                <Property name="Placement" type="App::PropertyPlacement"><PropertyPlacement Px="-13.1" Py="-1" Pz="0" Q0="-0.7071067811865476" Q1="0" Q2="0" Q3="0.7071067811865476" A="1.5707963267948966" Ox="-1" Oy="0" Oz="0"/></Property>
+                <Property name="Visibility" type="App::PropertyBool"><Bool value="false"/></Property>
+            </Properties>
+        </Object>
+        <Object name="HoleR">
+            <Properties Count="6" TransientCount="0">
+                <Property name="ExpressionEngine" type="App::PropertyExpressionEngine">
+                    <ExpressionEngine count="4">
+                        <Expression path="Radius" expression="Params.HoleDia / 2"/>
+                        <Expression path="Height" expression="Params.PlateThk + 2"/>
+                        <Expression path=".Placement.Base.x" expression="Params.HolePitch / 2"/>
+                        <Expression path=".Placement.Base.y" expression="-1"/>
+                    </ExpressionEngine>
+                </Property>
+                <Property name="Label" type="App::PropertyString"><String value="HoleR"/></Property>
+                <Property name="Radius" type="App::PropertyLength"><Float value="2.25"/></Property>
+                <Property name="Height" type="App::PropertyLength"><Float value="3.2"/></Property>
+                <Property name="Placement" type="App::PropertyPlacement"><PropertyPlacement Px="13.1" Py="-1" Pz="0" Q0="-0.7071067811865476" Q1="0" Q2="0" Q3="0.7071067811865476" A="1.5707963267948966" Ox="-1" Oy="0" Oz="0"/></Property>
+                <Property name="Visibility" type="App::PropertyBool"><Bool value="false"/></Property>
+            </Properties>
+        </Object>
+        <!-- 90 deg countersinks on the magnet side; cone runs 0.2 mm past the face so the cut is not coplanar -->
+        <Object name="CskL">
+            <Properties Count="7" TransientCount="0">
+                <Property name="ExpressionEngine" type="App::PropertyExpressionEngine">
+                    <ExpressionEngine count="5">
+                        <Expression path="Radius1" expression="Params.HoleDia / 2"/>
+                        <Expression path="Radius2" expression="Params.CskDia / 2 + 0.2"/>
+                        <Expression path="Height" expression="Params.CskDepth + 0.2"/>
+                        <Expression path=".Placement.Base.x" expression="-Params.HolePitch / 2"/>
+                        <Expression path=".Placement.Base.y" expression="Params.PlateThk - Params.CskDepth"/>
+                    </ExpressionEngine>
+                </Property>
+                <Property name="Label" type="App::PropertyString"><String value="CskL"/></Property>
+                <Property name="Radius1" type="App::PropertyLength"><Float value="2.25"/></Property>
+                <Property name="Radius2" type="App::PropertyLength"><Float value="3.45"/></Property>
+                <Property name="Height" type="App::PropertyLength"><Float value="1.2"/></Property>
+                <Property name="Placement" type="App::PropertyPlacement"><PropertyPlacement Px="-13.1" Py="0.2" Pz="0" Q0="-0.7071067811865476" Q1="0" Q2="0" Q3="0.7071067811865476" A="1.5707963267948966" Ox="-1" Oy="0" Oz="0"/></Property>
+                <Property name="Visibility" type="App::PropertyBool"><Bool value="false"/></Property>
+            </Properties>
+        </Object>
+        <Object name="CskR">
+            <Properties Count="7" TransientCount="0">
+                <Property name="ExpressionEngine" type="App::PropertyExpressionEngine">
+                    <ExpressionEngine count="5">
+                        <Expression path="Radius1" expression="Params.HoleDia / 2"/>
+                        <Expression path="Radius2" expression="Params.CskDia / 2 + 0.2"/>
+                        <Expression path="Height" expression="Params.CskDepth + 0.2"/>
+                        <Expression path=".Placement.Base.x" expression="Params.HolePitch / 2"/>
+                        <Expression path=".Placement.Base.y" expression="Params.PlateThk - Params.CskDepth"/>
+                    </ExpressionEngine>
+                </Property>
+                <Property name="Label" type="App::PropertyString"><String value="CskR"/></Property>
+                <Property name="Radius1" type="App::PropertyLength"><Float value="2.25"/></Property>
+                <Property name="Radius2" type="App::PropertyLength"><Float value="3.45"/></Property>
+                <Property name="Height" type="App::PropertyLength"><Float value="1.2"/></Property>
+                <Property name="Placement" type="App::PropertyPlacement"><PropertyPlacement Px="13.1" Py="0.2" Pz="0" Q0="-0.7071067811865476" Q1="0" Q2="0" Q3="0.7071067811865476" A="1.5707963267948966" Ox="-1" Oy="0" Oz="0"/></Property>
+                <Property name="Visibility" type="App::PropertyBool"><Bool value="false"/></Property>
+            </Properties>
+        </Object>
+        <Object name="PlateCut1">
+            <Properties Count="5" TransientCount="0">
+                <Property name="Base" type="App::PropertyLink"><Link value="PlateBlank"/></Property>
+                <Property name="Label" type="App::PropertyString"><String value="PlateCut1"/></Property>
+                <Property name="Refine" type="App::PropertyBool"><Bool value="true"/></Property>
+                <Property name="Tool" type="App::PropertyLink"><Link value="HoleL"/></Property>
+                <Property name="Visibility" type="App::PropertyBool"><Bool value="false"/></Property>
+            </Properties>
+        </Object>
+        <Object name="PlateCut2">
+            <Properties Count="5" TransientCount="0">
+                <Property name="Base" type="App::PropertyLink"><Link value="PlateCut1"/></Property>
+                <Property name="Label" type="App::PropertyString"><String value="PlateCut2"/></Property>
+                <Property name="Refine" type="App::PropertyBool"><Bool value="true"/></Property>
+                <Property name="Tool" type="App::PropertyLink"><Link value="HoleR"/></Property>
+                <Property name="Visibility" type="App::PropertyBool"><Bool value="false"/></Property>
+            </Properties>
+        </Object>
+        <Object name="PlateCut3">
+            <Properties Count="5" TransientCount="0">
+                <Property name="Base" type="App::PropertyLink"><Link value="PlateCut2"/></Property>
+                <Property name="Label" type="App::PropertyString"><String value="PlateCut3"/></Property>
+                <Property name="Refine" type="App::PropertyBool"><Bool value="true"/></Property>
+                <Property name="Tool" type="App::PropertyLink"><Link value="CskL"/></Property>
+                <Property name="Visibility" type="App::PropertyBool"><Bool value="false"/></Property>
+            </Properties>
+        </Object>
+        <!-- Finished zinc-plated steel counterplate -->
+        <Object name="Plate">
+            <Properties Count="5" TransientCount="0">
+                <Property name="Base" type="App::PropertyLink"><Link value="PlateCut3"/></Property>
+                <Property name="Label" type="App::PropertyString"><String value="Plate"/></Property>
+                <Property name="Refine" type="App::PropertyBool"><Bool value="true"/></Property>
+                <Property name="Tool" type="App::PropertyLink"><Link value="CskR"/></Property>
+                <Property name="Visibility" type="App::PropertyBool"><Bool value="true"/></Property>
+            </Properties>
+        </Object>
+<!-- ============================ TECHDRAW ============================ -->
+        <!-- A4 landscape, 2:1, first-angle projection, laid out like the Hettich MTA sheet -->
+        <Object name="Page">
+            <Properties Count="6" TransientCount="0">
+                <Property name="KeepUpdated" type="App::PropertyBool"><Bool value="true"/></Property>
+                <Property name="Label" type="App::PropertyString"><String value="TPD_Sheet1"/></Property>
+                <Property name="ProjectionType" type="App::PropertyEnumeration"><Integer value="0"/></Property>
+                <Property name="Scale" type="App::PropertyFloatConstraint"><Float value="2"/></Property>
+                <Property name="Template" type="App::PropertyLink"><Link value="Template"/></Property>
+                <Property name="Views" type="App::PropertyLinkList">
+                    <LinkList count="19">
+                        <Link value="ViewFront"/>
+                        <Link value="ViewTop"/>
+                        <Link value="ViewSide"/>
+                        <Link value="ViewPlateTop"/>
+                        <Link value="ViewPlateSide"/>
+                        <Link value="ViewIso"/>
+                        <Link value="Dim01"/>
+                        <Link value="Dim02"/>
+                        <Link value="Dim03"/>
+                        <Link value="Dim04"/>
+                        <Link value="Dim05"/>
+                        <Link value="Dim06"/>
+                        <Link value="Dim07"/>
+                        <Link value="Dim08"/>
+                        <Link value="Dim09"/>
+                        <Link value="Dim10"/>
+                        <Link value="Dim11"/>
+                        <Link value="Dim12"/>
+                        <Link value="Dim13"/>
+                    </LinkList>
+                </Property>
+            </Properties>
+        </Object>
+        <!-- The SVG ships inside the .FCStd; PropertyFileIncluded names the zip member -->
+        <Object name="Template">
+            <Properties Count="5" TransientCount="0">
+                <Property name="EditableTexts" type="App::PropertyMap">
+                    <Map count="6">
+                        <Item key="ArticleNo" value="89261 / 89262 (Hettich 9322506)"/>
+                        <Item key="Author" value="Foad S. Farimani"/>
+                        <Item key="Description" value="Magnetschnaepper 5 kg with counterplate - dims in mm"/>
+                        <Item key="FC-Date" value="2026-09-27"/>
+                        <Item key="FC-SC" value="2 : 1"/>
+                        <Item key="FC-Title" value="Magnetic catch 5 kg, white"/>
+                    </Map>
+                </Property>
+                <Property name="Height" type="App::PropertyLength"><Float value="210"/></Property>
+                <Property name="Label" type="App::PropertyString"><String value="Template"/></Property>
+                <Property name="PageResult" type="App::PropertyFileIncluded"><FileIncluded file="A4_Landscape_Catch.svg"/></Property>
+                <Property name="Width" type="App::PropertyLength"><Float value="297"/></Property>
+            </Properties>
+        </Object>
+        <!-- Looking at the magnet face (viewer at -Y): counterplate in front of the housing, as MTA top panel -->
+        <Object name="ViewFront">
+            <Properties Count="10" TransientCount="0">
+                <Property name="Direction" type="App::PropertyVector"><PropertyVector valueX="0" valueY="-1" valueZ="0"/></Property>
+                <Property name="HardHidden" type="App::PropertyBool"><Bool value="false"/></Property>
+                <Property name="Label" type="App::PropertyString"><String value="View_Front"/></Property>
+                <Property name="Source" type="App::PropertyLinkList"><LinkList count="5"><Link value="Housing"/><Link value="Magnet"/><Link value="PolePlateLower"/><Link value="PolePlateUpper"/><Link value="Plate"/></LinkList></Property>
+                <Property name="X" type="App::PropertyDistance"><Float value="85"/></Property>
+                <Property name="XDirection" type="App::PropertyVector"><PropertyVector valueX="1" valueY="0" valueZ="0"/></Property>
+                <Property name="Y" type="App::PropertyDistance"><Float value="169"/></Property>
+                <Property name="Caption" type="App::PropertyString"><String value=""/></Property>
+                <Property name="Scale" type="App::PropertyFloatConstraint"><Float value="2"/></Property>
+                <Property name="ScaleType" type="App::PropertyEnumeration"><Integer value="0"/></Property>
+            </Properties>
+        </Object>
+        <!-- Plan of the catch: slots, 37 pitch, magnet face at the bottom -->
+        <Object name="ViewTop">
+            <Properties Count="11" TransientCount="0">
+                <!-- Two cosmetic vertices at the ends of the right screw slot (view coordinates, unscaled,
+                     Y inverted as TechDraw stores them). Appended after the 24 projected vertices, they are
+                     Vertex24 and Vertex25 and carry the slot-length dimension Dim05. -->
+                <Property name="CosmeticVertexes" type="TechDraw::PropertyCosmeticVertexList">
+                    <CosmeticVertexList count="2">
+                        <CosmeticVertex  type="TechDraw::CosmeticVertex">
+                            <Point X="18.5" Y="3.5" Z="0"/>
+                            <Extract value="0"/>
+                            <HLRVisible value="1"/>
+                            <Ref3D value="-1"/>
+                            <IsCenter value="0"/>
+                            <Cosmetic value="1"/>
+                            <CosmeticLink value="-1"/>
+                            <CosmeticTag value=""/>
+                            <VertexTag value="3f0d8a61-5b1e-4c52-9a41-6d2f7e1c0a01"/>
+                            <PermaPoint X="18.5" Y="3.5" Z="0"/>
+                            <LinkGeom value="24"/>
+                            <Color value="#000000"/>
+                            <Size value="1.0"/>
+                            <Style value="1"/>
+                            <Visible value="0"/>
+                            <Tag value="3f0d8a61-5b1e-4c52-9a41-6d2f7e1c0a01"/>
+                        </CosmeticVertex>
+                        <CosmeticVertex  type="TechDraw::CosmeticVertex">
+                            <Point X="18.5" Y="-2.5" Z="0"/>
+                            <Extract value="0"/>
+                            <HLRVisible value="1"/>
+                            <Ref3D value="-1"/>
+                            <IsCenter value="0"/>
+                            <Cosmetic value="1"/>
+                            <CosmeticLink value="-1"/>
+                            <CosmeticTag value=""/>
+                            <VertexTag value="3f0d8a61-5b1e-4c52-9a41-6d2f7e1c0a02"/>
+                            <PermaPoint X="18.5" Y="-2.5" Z="0"/>
+                            <LinkGeom value="25"/>
+                            <Color value="#000000"/>
+                            <Size value="1.0"/>
+                            <Style value="1"/>
+                            <Visible value="0"/>
+                            <Tag value="3f0d8a61-5b1e-4c52-9a41-6d2f7e1c0a02"/>
+                        </CosmeticVertex>
+                    </CosmeticVertexList>
+                </Property>
+                <Property name="Direction" type="App::PropertyVector"><PropertyVector valueX="0" valueY="0" valueZ="1"/></Property>
+                <Property name="HardHidden" type="App::PropertyBool"><Bool value="false"/></Property>
+                <Property name="Label" type="App::PropertyString"><String value="View_Top"/></Property>
+                <Property name="Source" type="App::PropertyLinkList"><LinkList count="4"><Link value="Housing"/><Link value="Magnet"/><Link value="PolePlateLower"/><Link value="PolePlateUpper"/></LinkList></Property>
+                <Property name="X" type="App::PropertyDistance"><Float value="85"/></Property>
+                <Property name="XDirection" type="App::PropertyVector"><PropertyVector valueX="1" valueY="0" valueZ="0"/></Property>
+                <Property name="Y" type="App::PropertyDistance"><Float value="106"/></Property>
+                <Property name="Caption" type="App::PropertyString"><String value=""/></Property>
+                <Property name="Scale" type="App::PropertyFloatConstraint"><Float value="2"/></Property>
+                <Property name="ScaleType" type="App::PropertyEnumeration"><Integer value="0"/></Property>
+            </Properties>
+        </Object>
+        <!-- End view of the catch, aligned with the plan: height runs horizontally, depth vertically -->
+        <Object name="ViewSide">
+            <Properties Count="10" TransientCount="0">
+                <Property name="Direction" type="App::PropertyVector"><PropertyVector valueX="-1" valueY="0" valueZ="0"/></Property>
+                <Property name="HardHidden" type="App::PropertyBool"><Bool value="false"/></Property>
+                <Property name="Label" type="App::PropertyString"><String value="View_Side"/></Property>
+                <Property name="Source" type="App::PropertyLinkList"><LinkList count="4"><Link value="Housing"/><Link value="Magnet"/><Link value="PolePlateLower"/><Link value="PolePlateUpper"/></LinkList></Property>
+                <Property name="X" type="App::PropertyDistance"><Float value="168"/></Property>
+                <Property name="XDirection" type="App::PropertyVector"><PropertyVector valueX="0" valueY="0" valueZ="1"/></Property>
+                <Property name="Y" type="App::PropertyDistance"><Float value="106"/></Property>
+                <Property name="Caption" type="App::PropertyString"><String value=""/></Property>
+                <Property name="Scale" type="App::PropertyFloatConstraint"><Float value="2"/></Property>
+                <Property name="ScaleType" type="App::PropertyEnumeration"><Integer value="0"/></Property>
+            </Properties>
+        </Object>
+        <!-- Counterplate seen edge-on from above (38) -->
+        <Object name="ViewPlateTop">
+            <Properties Count="10" TransientCount="0">
+                <Property name="Direction" type="App::PropertyVector"><PropertyVector valueX="0" valueY="0" valueZ="1"/></Property>
+                <Property name="HardHidden" type="App::PropertyBool"><Bool value="false"/></Property>
+                <Property name="Label" type="App::PropertyString"><String value="View_Plate_Top"/></Property>
+                <Property name="Source" type="App::PropertyLinkList"><LinkList count="1"><Link value="Plate"/></LinkList></Property>
+                <Property name="X" type="App::PropertyDistance"><Float value="85"/></Property>
+                <Property name="XDirection" type="App::PropertyVector"><PropertyVector valueX="1" valueY="0" valueZ="0"/></Property>
+                <Property name="Y" type="App::PropertyDistance"><Float value="60"/></Property>
+                <Property name="Caption" type="App::PropertyString"><String value=""/></Property>
+                <Property name="Scale" type="App::PropertyFloatConstraint"><Float value="2"/></Property>
+                <Property name="ScaleType" type="App::PropertyEnumeration"><Integer value="0"/></Property>
+            </Properties>
+        </Object>
+        <!-- Counterplate seen from the end (11.8) -->
+        <Object name="ViewPlateSide">
+            <Properties Count="10" TransientCount="0">
+                <Property name="Direction" type="App::PropertyVector"><PropertyVector valueX="-1" valueY="0" valueZ="0"/></Property>
+                <Property name="HardHidden" type="App::PropertyBool"><Bool value="false"/></Property>
+                <Property name="Label" type="App::PropertyString"><String value="View_Plate_Side"/></Property>
+                <Property name="Source" type="App::PropertyLinkList"><LinkList count="1"><Link value="Plate"/></LinkList></Property>
+                <Property name="X" type="App::PropertyDistance"><Float value="168"/></Property>
+                <Property name="XDirection" type="App::PropertyVector"><PropertyVector valueX="0" valueY="0" valueZ="1"/></Property>
+                <Property name="Y" type="App::PropertyDistance"><Float value="60"/></Property>
+                <Property name="Caption" type="App::PropertyString"><String value=""/></Property>
+                <Property name="Scale" type="App::PropertyFloatConstraint"><Float value="2"/></Property>
+                <Property name="ScaleType" type="App::PropertyEnumeration"><Integer value="0"/></Property>
+            </Properties>
+        </Object>
+        <!-- Isometric of the mated assembly, viewer front-right-top -->
+        <Object name="ViewIso">
+            <Properties Count="10" TransientCount="0">
+                <Property name="Direction" type="App::PropertyVector"><PropertyVector valueX="0.5773502691896258" valueY="-0.5773502691896258" valueZ="0.5773502691896258"/></Property>
+                <Property name="HardHidden" type="App::PropertyBool"><Bool value="false"/></Property>
+                <Property name="Label" type="App::PropertyString"><String value="View_Iso"/></Property>
+                <Property name="Source" type="App::PropertyLinkList"><LinkList count="5"><Link value="Housing"/><Link value="Magnet"/><Link value="PolePlateLower"/><Link value="PolePlateUpper"/><Link value="Plate"/></LinkList></Property>
+                <Property name="X" type="App::PropertyDistance"><Float value="236"/></Property>
+                <Property name="XDirection" type="App::PropertyVector"><PropertyVector valueX="0.7071067811865476" valueY="0.7071067811865476" valueZ="0"/></Property>
+                <Property name="Y" type="App::PropertyDistance"><Float value="155"/></Property>
+                <Property name="Caption" type="App::PropertyString"><String value=""/></Property>
+                <Property name="Scale" type="App::PropertyFloatConstraint"><Float value="2"/></Property>
+                <Property name="ScaleType" type="App::PropertyEnumeration"><Integer value="0"/></Property>
+            </Properties>
+        </Object>
+        <!-- Dimensions. Type: 1 DistanceX, 2 DistanceY, 5 Diameter. MeasureType 1 = Projected.
+             References2D name the projected geometry of the view (EdgeN / VertexN, visible then hidden).
+             X, Y place the label relative to the view centre. -->
+        <Object name="Dim01">
+            <Properties Count="7" TransientCount="0">
+                <Property name="FormatSpec" type="App::PropertyString"><String value="%.2w"/></Property>
+                <Property name="Label" type="App::PropertyString"><String value="Dim_Front_Length45"/></Property>
+                <Property name="MeasureType" type="App::PropertyEnumeration"><Integer value="1"/></Property>
+                <Property name="References2D" type="App::PropertyLinkSubList"><LinkSubList count="2"><Link obj="ViewFront" sub="Vertex0"/><Link obj="ViewFront" sub="Vertex2"/></LinkSubList></Property>
+                <Property name="Type" type="App::PropertyEnumeration"><Integer value="1"/></Property>
+                <Property name="X" type="App::PropertyDistance"><Float value="0"/></Property>
+                <Property name="Y" type="App::PropertyDistance"><Float value="-20"/></Property>
+            </Properties>
+        </Object>
+        <Object name="Dim02">
+            <Properties Count="7" TransientCount="0">
+                <Property name="FormatSpec" type="App::PropertyString"><String value="%.2w"/></Property>
+                <Property name="Label" type="App::PropertyString"><String value="Dim_Front_HolePitch"/></Property>
+                <Property name="MeasureType" type="App::PropertyEnumeration"><Integer value="1"/></Property>
+                <Property name="References2D" type="App::PropertyLinkSubList"><LinkSubList count="2"><Link obj="ViewFront" sub="Vertex17"/><Link obj="ViewFront" sub="Vertex20"/></LinkSubList></Property>
+                <Property name="Type" type="App::PropertyEnumeration"><Integer value="1"/></Property>
+                <Property name="X" type="App::PropertyDistance"><Float value="0"/></Property>
+                <Property name="Y" type="App::PropertyDistance"><Float value="26"/></Property>
+            </Properties>
+        </Object>
+        <Object name="Dim03">
+            <Properties Count="7" TransientCount="0">
+                <Property name="FormatSpec" type="App::PropertyString"><String value="%%c%.2w"/></Property>
+                <Property name="Label" type="App::PropertyString"><String value="Dim_Front_HoleDia"/></Property>
+                <Property name="MeasureType" type="App::PropertyEnumeration"><Integer value="1"/></Property>
+                <Property name="References2D" type="App::PropertyLinkSubList"><LinkSubList count="1"><Link obj="ViewFront" sub="Edge14"/></LinkSubList></Property>
+                <Property name="Type" type="App::PropertyEnumeration"><Integer value="5"/></Property>
+                <Property name="X" type="App::PropertyDistance"><Float value="-50"/></Property>
+                <Property name="Y" type="App::PropertyDistance"><Float value="16"/></Property>
+            </Properties>
+        </Object>
+        <Object name="Dim04">
+            <Properties Count="7" TransientCount="0">
+                <Property name="FormatSpec" type="App::PropertyString"><String value="%.2w"/></Property>
+                <Property name="Label" type="App::PropertyString"><String value="Dim_Top_SlotPitch37"/></Property>
+                <Property name="MeasureType" type="App::PropertyEnumeration"><Integer value="1"/></Property>
+                <Property name="References2D" type="App::PropertyLinkSubList"><LinkSubList count="2"><Link obj="ViewTop" sub="Vertex8"/><Link obj="ViewTop" sub="Vertex16"/></LinkSubList></Property>
+                <Property name="Type" type="App::PropertyEnumeration"><Integer value="1"/></Property>
+                <Property name="X" type="App::PropertyDistance"><Float value="0"/></Property>
+                <Property name="Y" type="App::PropertyDistance"><Float value="27"/></Property>
+            </Properties>
+        </Object>
+        <Object name="Dim05">
+            <Properties Count="7" TransientCount="0">
+                <Property name="FormatSpec" type="App::PropertyString"><String value="%.2w"/></Property>
+                <Property name="Label" type="App::PropertyString"><String value="Dim_Top_SlotLength6"/></Property>
+                <Property name="MeasureType" type="App::PropertyEnumeration"><Integer value="1"/></Property>
+                <Property name="References2D" type="App::PropertyLinkSubList"><LinkSubList count="2"><Link obj="ViewTop" sub="Vertex24"/><Link obj="ViewTop" sub="Vertex25"/></LinkSubList></Property>
+                <Property name="Type" type="App::PropertyEnumeration"><Integer value="2"/></Property>
+                <Property name="X" type="App::PropertyDistance"><Float value="52"/></Property>
+                <Property name="Y" type="App::PropertyDistance"><Float value="0"/></Property>
+            </Properties>
+        </Object>
+        <Object name="Dim06">
+            <Properties Count="7" TransientCount="0">
+                <Property name="FormatSpec" type="App::PropertyString"><String value="%.2w"/></Property>
+                <Property name="Label" type="App::PropertyString"><String value="Dim_Top_Tower27.2"/></Property>
+                <Property name="MeasureType" type="App::PropertyEnumeration"><Integer value="1"/></Property>
+                <Property name="References2D" type="App::PropertyLinkSubList"><LinkSubList count="2"><Link obj="ViewTop" sub="Vertex2"/><Link obj="ViewTop" sub="Vertex3"/></LinkSubList></Property>
+                <Property name="Type" type="App::PropertyEnumeration"><Integer value="1"/></Property>
+                <Property name="X" type="App::PropertyDistance"><Float value="0"/></Property>
+                <Property name="Y" type="App::PropertyDistance"><Float value="-20"/></Property>
+            </Properties>
+        </Object>
+        <Object name="Dim07">
+            <Properties Count="7" TransientCount="0">
+                <Property name="FormatSpec" type="App::PropertyString"><String value="%.2w"/></Property>
+                <Property name="Label" type="App::PropertyString"><String value="Dim_Top_SlotWidth3"/></Property>
+                <Property name="MeasureType" type="App::PropertyEnumeration"><Integer value="1"/></Property>
+                <Property name="References2D" type="App::PropertyLinkSubList"><LinkSubList count="2"><Link obj="ViewTop" sub="Edge15"/><Link obj="ViewTop" sub="Edge13"/></LinkSubList></Property>
+                <Property name="Type" type="App::PropertyEnumeration"><Integer value="1"/></Property>
+                <Property name="X" type="App::PropertyDistance"><Float value="37"/></Property>
+                <Property name="Y" type="App::PropertyDistance"><Float value="-20"/></Property>
+            </Properties>
+        </Object>
+        <Object name="Dim08">
+            <Properties Count="7" TransientCount="0">
+                <Property name="FormatSpec" type="App::PropertyString"><String value="%.2w"/></Property>
+                <Property name="Label" type="App::PropertyString"><String value="Dim_Side_Height13.3"/></Property>
+                <Property name="MeasureType" type="App::PropertyEnumeration"><Integer value="1"/></Property>
+                <Property name="References2D" type="App::PropertyLinkSubList"><LinkSubList count="2"><Link obj="ViewSide" sub="Vertex0"/><Link obj="ViewSide" sub="Vertex4"/></LinkSubList></Property>
+                <Property name="Type" type="App::PropertyEnumeration"><Integer value="1"/></Property>
+                <Property name="X" type="App::PropertyDistance"><Float value="0"/></Property>
+                <Property name="Y" type="App::PropertyDistance"><Float value="27"/></Property>
+            </Properties>
+        </Object>
+        <Object name="Dim09">
+            <Properties Count="7" TransientCount="0">
+                <Property name="FormatSpec" type="App::PropertyString"><String value="%.2w"/></Property>
+                <Property name="Label" type="App::PropertyString"><String value="Dim_Side_Depth14"/></Property>
+                <Property name="MeasureType" type="App::PropertyEnumeration"><Integer value="1"/></Property>
+                <Property name="References2D" type="App::PropertyLinkSubList"><LinkSubList count="2"><Link obj="ViewSide" sub="Vertex4"/><Link obj="ViewSide" sub="Vertex5"/></LinkSubList></Property>
+                <Property name="Type" type="App::PropertyEnumeration"><Integer value="2"/></Property>
+                <Property name="X" type="App::PropertyDistance"><Float value="22"/></Property>
+                <Property name="Y" type="App::PropertyDistance"><Float value="0"/></Property>
+            </Properties>
+        </Object>
+        <Object name="Dim10">
+            <Properties Count="7" TransientCount="0">
+                <Property name="FormatSpec" type="App::PropertyString"><String value="%.2w"/></Property>
+                <Property name="Label" type="App::PropertyString"><String value="Dim_Side_Flange4.3"/></Property>
+                <Property name="MeasureType" type="App::PropertyEnumeration"><Integer value="1"/></Property>
+                <Property name="References2D" type="App::PropertyLinkSubList"><LinkSubList count="2"><Link obj="ViewSide" sub="Vertex0"/><Link obj="ViewSide" sub="Vertex1"/></LinkSubList></Property>
+                <Property name="Type" type="App::PropertyEnumeration"><Integer value="1"/></Property>
+                <Property name="X" type="App::PropertyDistance"><Float value="-9"/></Property>
+                <Property name="Y" type="App::PropertyDistance"><Float value="-20"/></Property>
+            </Properties>
+        </Object>
+        <Object name="Dim11">
+            <Properties Count="7" TransientCount="0">
+                <Property name="FormatSpec" type="App::PropertyString"><String value="%.2w"/></Property>
+                <Property name="Label" type="App::PropertyString"><String value="Dim_Plate_Length38"/></Property>
+                <Property name="MeasureType" type="App::PropertyEnumeration"><Integer value="1"/></Property>
+                <Property name="References2D" type="App::PropertyLinkSubList"><LinkSubList count="2"><Link obj="ViewPlateTop" sub="Vertex4"/><Link obj="ViewPlateTop" sub="Vertex7"/></LinkSubList></Property>
+                <Property name="Type" type="App::PropertyEnumeration"><Integer value="1"/></Property>
+                <Property name="X" type="App::PropertyDistance"><Float value="0"/></Property>
+                <Property name="Y" type="App::PropertyDistance"><Float value="-7"/></Property>
+            </Properties>
+        </Object>
+        <Object name="Dim12">
+            <Properties Count="7" TransientCount="0">
+                <Property name="FormatSpec" type="App::PropertyString"><String value="%.2w"/></Property>
+                <Property name="Label" type="App::PropertyString"><String value="Dim_Plate_Thickness1.2"/></Property>
+                <Property name="MeasureType" type="App::PropertyEnumeration"><Integer value="1"/></Property>
+                <Property name="References2D" type="App::PropertyLinkSubList"><LinkSubList count="2"><Link obj="ViewPlateTop" sub="Vertex6"/><Link obj="ViewPlateTop" sub="Vertex7"/></LinkSubList></Property>
+                <Property name="Type" type="App::PropertyEnumeration"><Integer value="2"/></Property>
+                <Property name="X" type="App::PropertyDistance"><Float value="45"/></Property>
+                <Property name="Y" type="App::PropertyDistance"><Float value="0"/></Property>
+            </Properties>
+        </Object>
+        <Object name="Dim13">
+            <Properties Count="7" TransientCount="0">
+                <Property name="FormatSpec" type="App::PropertyString"><String value="%.2w"/></Property>
+                <Property name="Label" type="App::PropertyString"><String value="Dim_Plate_Width11.8"/></Property>
+                <Property name="MeasureType" type="App::PropertyEnumeration"><Integer value="1"/></Property>
+                <Property name="References2D" type="App::PropertyLinkSubList"><LinkSubList count="2"><Link obj="ViewPlateSide" sub="Vertex2"/><Link obj="ViewPlateSide" sub="Vertex0"/></LinkSubList></Property>
+                <Property name="Type" type="App::PropertyEnumeration"><Integer value="1"/></Property>
+                <Property name="X" type="App::PropertyDistance"><Float value="0"/></Property>
+                <Property name="Y" type="App::PropertyDistance"><Float value="-7"/></Property>
+            </Properties>
+        </Object>
+    </ObjectData>
+</Document>
