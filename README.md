@@ -82,6 +82,7 @@ What the gates check:
 - **`gui`** (a real display, Xvfb on CI):
   - the file opens with its parts visible;
   - the TechDraw page is opened and exported to DXF, PDF and SVG;
+  - the DXF is fitted to view (header extents and a zoom-extents viewport), with every entity proven unchanged, because TechDraw's own export opens zoomed far out;
   - all 13 dimensions are read back;
   - each `--edit` moves the drawing's dimensions.
 

@@ -14,12 +14,16 @@ template SVG). This tool closes the loop around it; it never writes the XML for 
   fcstd_xml.py gui    <file.FCStd> --out DIR [--edit Alias=value ...] [--json]
                       VISIBLE FreeCAD window (the user's boundary): visibility/colour as opened,
                       3D screenshots, every TechDraw page opened then exported (DXF via
-                      TechDraw.writeDXFPage, PDF, SVG), all dimensions read back, and with
-                      --edit a check that the dimensions follow the spreadsheet
+                      TechDraw.writeDXFPage, PDF, SVG), every DXF then fitted to view (see dxf
+                      --fit), all dimensions read back, and with --edit a check that the
+                      dimensions follow the spreadsheet
   fcstd_xml.py probe  <file.FCStd> [--view NAME] [--json] projected edges/vertices of TechDraw
                       views (offscreen is fine here) to pick EdgeN / VertexN references
-  fcstd_xml.py dxf    <file.dxf> [--png out.png] [--json] numeric layout of a TechDraw DXF:
-                      view extents, every dimension's value, line and text position, mojibake
+  fcstd_xml.py dxf    <file.dxf> [--fit] [--png out.png] [--json] numeric layout of a TechDraw
+                      DXF: view extents, every dimension's value, line and text position,
+                      mojibake, and a FAIL if it would open unfitted. --fit first writes the
+                      header extents and a zoom-extents *Active viewport in place, and only if
+                      every entity of every block reads back identical
   fcstd_xml.py --selftest
 
 Why each check exists (all measured on FreeCAD 1.0.2, 2026-09-27, Hettich catch build; the
@@ -38,9 +42,12 @@ full list and XML snippets: docs/hand-writing-fcstd.md in https://github.com/Foa
   * A restored view does not inherit the page scale.
   * TechDraw's DXF writer emits UTF-8 into a file declared ANSI_1252 (use %%c, not the
     diameter glyph) and writes hidden lines as solid lines on the view layer.
+  * It also writes no $EXTMIN/$EXTMAX and an *Active viewport at (0,0) height 1000, so every
+    viewer opens zoomed far out (2026-10-06). Setting doc.header["$EXTMIN"] in ezdxf does not
+    survive its save; the modelspace layout's extmin/extmax does.
 
 Exit codes: 0 ok; 1 a gate failed; 2 bad input / FreeCAD not found.
-Stdlib only, except `dxf`, which pulls ezdxf (+ matplotlib for --png) via fleet_bootstrap.
+Stdlib only, except `dxf` and `gui`, which pull ezdxf (+ matplotlib for --png) via fleet_bootstrap.
 """
 from __future__ import annotations
 
@@ -586,7 +593,9 @@ done()
 
 
 # ---------------------------------------------------------------- dxf
-def dxf_report(path: Path, png: Path | None) -> dict:
+def _ezdxf(png: bool = False):
+    """Import ezdxf, re-exec'ing into a fleet venv that has it. Call it BEFORE any slow work:
+    fleet_bootstrap re-runs the whole command line in the other interpreter."""
     here = os.path.dirname(os.path.abspath(__file__))
     sys.path.insert(0, here)
     try:
@@ -595,10 +604,114 @@ def dxf_report(path: Path, png: Path | None) -> dict:
     except ImportError:
         pass  # standalone: pip install ezdxf matplotlib
     import ezdxf  # noqa: PLC0415
+    return ezdxf
+
+
+def _dxf_signature(doc) -> dict:
+    """Every entity of every block (modelspace and the dimension blocks included) as its type
+    plus attributes, minus handle, owner and any value equal to its DXF default: the drawing
+    itself, independent of the save. ezdxf writes defaults explicitly (a TechDraw DIMENSION
+    gains attachment_point=5 and angle=0.0, measured 2026-10-06), which changes nothing drawn."""
+    def is_default(e, k, v):
+        # the SCHEMA default; e.dxf.get_default(k) returns the current value once k is set, which
+        # would strip every attribute and compare entity types only (measured 2026-10-06)
+        dflt = getattr(e.DXFATTRIBS.get(k), "default", None)
+        return dflt is not None and type(v) is type(dflt) and v == dflt or (
+            isinstance(v, (int, float)) and isinstance(dflt, (int, float)) and v == dflt)
+
+    sig = {}
+    for blk in doc.blocks:
+        rows = []
+        for e in blk:
+            d = e.dxfattribs()
+            d.pop("handle", None)
+            d.pop("owner", None)
+            d = {k: v for k, v in d.items() if not is_default(e, k, v)}
+            rows.append((e.dxftype(), repr(sorted(d.items(), key=lambda kv: kv[0]))))
+        sig[blk.name] = rows
+    return sig
+
+
+def dxf_fit_state(doc) -> dict:
+    """Does the file open fitted? TechDraw's writeDXFPage writes no $EXTMIN/$EXTMAX and leaves
+    the *Active viewport at (0,0), height 1000 (measured FreeCAD 1.0.2, 2026-10-06)."""
+    from ezdxf import bbox  # noqa: PLC0415
+    ext = bbox.extents(doc.modelspace())
+    if not ext.has_data:
+        return {"fitted": False, "reason": "modelspace is empty"}
+    w, h, c = ext.size.x, ext.size.y, ext.center
+    st = {"extents": [round(ext.extmin.x, 3), round(ext.extmin.y, 3), round(ext.extmax.x, 3), round(ext.extmax.y, 3)]}
+    reasons = []
+    hmin, hmax = doc.header.get("$EXTMIN"), doc.header.get("$EXTMAX")
+    tol = 1e-6 * max(w, h, 1.0)
+    if hmin is None or hmax is None or hmin[0] > hmax[0]:  # 1e+20/-1e+20 is the "unknown" sentinel
+        reasons.append(f"header $EXTMIN/$EXTMAX unset ({hmin} / {hmax})")
+    elif any(abs(a - b) > tol for a, b in zip((hmin[0], hmin[1], hmax[0], hmax[1]), (ext.extmin.x, ext.extmin.y, ext.extmax.x, ext.extmax.y), strict=True)):
+        reasons.append(f"header extents {tuple(hmin)[:2]}-{tuple(hmax)[:2]} differ from the drawing's {st['extents']}")
+    vps = doc.viewports.get("*Active")
+    if not vps:
+        reasons.append("no *Active viewport")
+    else:
+        vp = vps[0].dxf
+        want = max(w / 2.0, h, 1e-6)  # the height ezdxf.zoom gives a w x h window at factor 1
+        st["viewport"] = {"centre": [round(vp.center.x, 3), round(vp.center.y, 3)], "height": round(vp.height, 3)}
+        if math.hypot(vp.center.x - c.x, vp.center.y - c.y) > 0.05 * max(w, h) or not 0.9 * want <= vp.height <= 3 * want:
+            reasons.append(f"*Active viewport centre ({vp.center.x:.1f},{vp.center.y:.1f}) height {vp.height:.1f} does not frame "
+                           f"the drawing, centre ({c.x:.1f},{c.y:.1f}) size {w:.1f} x {h:.1f}")
+    st["fitted"] = not reasons
+    if reasons:
+        st["reason"] = "; ".join(reasons)
+    return st
+
+
+def dxf_fit(path: Path, factor: float = 1.1) -> dict:
+    """Fit a DXF to view IN PLACE: header extents plus a zoom-extents *Active viewport. Writes
+    only if the re-read file has every entity of every block identical and passes dxf_fit_state;
+    otherwise the original stays untouched and the result says why."""
+    ezdxf = _ezdxf()
+    from ezdxf import bbox, zoom  # noqa: PLC0415
+    path = Path(path)
+    before = ezdxf.readfile(str(path))
+    st = dxf_fit_state(before)
+    if st["fitted"]:
+        return {**st, "changed": False}
+    doc = ezdxf.readfile(str(path))
+    msp = doc.modelspace()
+    ext = bbox.extents(msp)
+    if not ext.has_data:
+        return {**st, "changed": False}
+    # ezdxf's save copies the modelspace LAYOUT's extents over the header, so a header assignment
+    # alone reads back as the +/-1e+20 sentinel (measured ezdxf 1.4.4, 2026-10-06). Set both.
+    lo, hi = (ext.extmin.x, ext.extmin.y, 0), (ext.extmax.x, ext.extmax.y, 0)
+    msp.reset_extents(lo, hi)
+    doc.header["$EXTMIN"], doc.header["$EXTMAX"] = lo, hi
+    zoom.extents(msp, factor=factor)
+    tmp = path.with_name(path.name + ".fit.tmp")
+    try:
+        doc.saveas(str(tmp))
+        after = ezdxf.readfile(str(tmp))
+        same = _dxf_signature(before) == _dxf_signature(after)
+        st = dxf_fit_state(after)
+        if same and st["fitted"]:
+            os.replace(tmp, path)
+            return {**st, "changed": True, "entities_unchanged": True}
+        why = [] if same else ["the re-saved drawing differs from the original (entity signature)"]
+        return {**st, "fitted": False, "changed": False, "entities_unchanged": same,
+                "reason": "; ".join(why + ([st["reason"]] if st.get("reason") else []))}
+    finally:
+        if tmp.exists():
+            tmp.unlink()
+
+
+def dxf_report(path: Path, png: Path | None) -> dict:
+    ezdxf = _ezdxf(png=bool(png))
     from ezdxf import bbox  # noqa: PLC0415
     doc = ezdxf.readfile(str(path))
     msp = doc.modelspace()
-    res = {"codepage": doc.header.get("$DWGCODEPAGE"), "views": {}, "dims": [], "warnings": []}
+    res = {"codepage": doc.header.get("$DWGCODEPAGE"), "views": {}, "dims": [], "warnings": [], "fail": []}
+    res["fit"] = dxf_fit_state(doc)
+    if not res["fit"]["fitted"]:
+        res["fail"].append(f"unfitted: opens zoomed away from the drawing ({res['fit']['reason']}); fcstd_xml.py dxf --fit fixes it")
     for lay in sorted({e.dxf.layer for e in msp}):
         ents = [e for e in msp if e.dxf.layer == lay and e.dxftype() != "DIMENSION"]
         if ents:
@@ -696,6 +809,10 @@ def selftest() -> int:
         print(("PASS " if cond else "FAIL ") + name)
         ok = ok and cond
 
+    try:
+        ez = _ezdxf()  # first: a fleet_bootstrap re-exec reruns the selftest from the top
+    except ImportError:
+        ez = None
     with tempfile.TemporaryDirectory() as td:
         src = Path(td) / "src"
         src.mkdir()
@@ -725,6 +842,43 @@ def selftest() -> int:
         names = zipfile.ZipFile(out).namelist()
         check("pack writes Document.xml first and GuiDocument.xml last",
               p["packed"] and names[0] == "Document.xml" and names[-1] == "GuiDocument.xml")
+        if ez:
+            from ezdxf import bbox, zoom  # noqa: PLC0415
+            raw = Path(td) / "raw.dxf"
+            d = ez.new("R2000")
+            m = d.modelspace()
+            m.add_lwpolyline([(100, 50), (220, 50), (220, 130), (100, 130)], close=True, dxfattribs={"layer": "View1"})
+            m.add_circle((160, 90), 10, dxfattribs={"layer": "View1"})
+            d.set_modelspace_vport(1000, (0, 0))  # what TechDraw's writeDXFPage leaves
+            d.saveas(str(raw))
+            check("dxf flags an unfitted export", any("unfitted" in f for f in dxf_report(raw, None)["fail"]))
+            trap = Path(td) / "header_only.dxf"
+            d = ez.readfile(str(raw))
+            e = bbox.extents(d.modelspace())
+            d.header["$EXTMIN"], d.header["$EXTMAX"] = (e.extmin.x, e.extmin.y, 0), (e.extmax.x, e.extmax.y, 0)
+            zoom.extents(d.modelspace(), factor=1.1)
+            d.saveas(str(trap))
+            check("dxf flags header extents that ezdxf's save discarded", "$EXTMIN" in dxf_fit_state(ez.readfile(str(trap))).get("reason", ""))
+            fixed = Path(td) / "fit.dxf"
+            shutil.copy(raw, fixed)
+            f = dxf_fit(fixed)
+            check("dxf --fit fits it, entities proven unchanged", f["fitted"] and f.get("changed") and f.get("entities_unchanged"))
+            check("the fitted file passes dxf", not dxf_report(fixed, None)["fail"])
+            check("a second fit is a no-op", dxf_fit(fixed)["changed"] is False)
+            moved = ez.readfile(str(fixed))
+            moved.modelspace().query("CIRCLE")[0].dxf.radius = 11
+            check("the entity signature sees a changed entity", _dxf_signature(moved) != _dxf_signature(ez.readfile(str(fixed))))
+            g, calls = globals(), iter(range(10**6))
+            real, g["_dxf_signature"] = g["_dxf_signature"], lambda doc: next(calls)  # a save that altered the drawing
+            try:
+                shutil.copy(raw, fixed)
+                f = dxf_fit(fixed)
+            finally:
+                g["_dxf_signature"] = real
+            check("dxf --fit refuses and leaves the file as it was when entities change",
+                  not f["fitted"] and fixed.read_bytes() == raw.read_bytes() and not any(Path(td).glob("*.fit.tmp")))
+        else:
+            print("SKIP DXF fit gates (ezdxf not installed)")
         if find_freecad(False):
             v = run_in_freecad(HELPER_VERIFY, {"file": str(out), "edits": ["BlockLen=30"], "parts": []}, gui=False, timeout=300)
             check("verify passes the good document", not v.get("fatal") and not v["fail"])
@@ -776,6 +930,7 @@ def main(argv=None) -> int:
     p.add_argument("--edit", action="append", default=[]); p.add_argument("--json", action="store_true"); p.add_argument("--timeout", type=int, default=600)
     p = sub.add_parser("probe"); p.add_argument("file"); p.add_argument("--view"); p.add_argument("--json", action="store_true"); p.add_argument("--timeout", type=int, default=600)
     p = sub.add_parser("dxf"); p.add_argument("file"); p.add_argument("--png"); p.add_argument("--json", action="store_true")
+    p.add_argument("--fit", action="store_true", help="first fit the file to view in place (extents + *Active viewport; entities proven unchanged)")
     a = ap.parse_args(argv)
     if a.selftest:
         return selftest()
@@ -789,7 +944,16 @@ def main(argv=None) -> int:
         return _emit(run_in_freecad(HELPER_VERIFY, {"file": os.path.abspath(a.file), "parts": parts, "edits": a.edit, "step": step}, gui=False, timeout=a.timeout), a.json)
     if a.cmd == "gui":
         os.makedirs(a.out, exist_ok=True)
-        return _emit(run_in_freecad(HELPER_GUI, {"file": os.path.abspath(a.file), "out": os.path.abspath(a.out), "edits": a.edit}, gui=True, timeout=a.timeout), a.json)
+        try:
+            _ezdxf()  # now, not after FreeCAD: a fleet_bootstrap re-exec would rerun the whole GUI session
+        except ImportError:
+            return _emit({"fatal": "gui fits every exported DXF to view and needs ezdxf (pip install ezdxf)"}, a.json)
+        res = run_in_freecad(HELPER_GUI, {"file": os.path.abspath(a.file), "out": os.path.abspath(a.out), "edits": a.edit}, gui=True, timeout=a.timeout)
+        for pg in res.get("pages", []):
+            pg["fit"] = dxf_fit(Path(pg["dxf"])) if os.path.exists(pg["dxf"]) else {"fitted": False, "reason": "writeDXFPage wrote no file"}
+            if not pg["fit"]["fitted"]:
+                res["fail"].append(f"{pg['dxf']}: not fitted to view: {pg['fit']['reason']}")
+        return _emit(res, a.json)
     if a.cmd == "probe":
         res = run_in_freecad(HELPER_PROBE, {"file": os.path.abspath(a.file), "view": a.view}, gui=True, offscreen=True, timeout=a.timeout)
         if not a.json and "views" in res:
@@ -802,7 +966,13 @@ def main(argv=None) -> int:
             return 1 if res["fail"] else 0
         return _emit(res, a.json)
     if a.cmd == "dxf":
-        return _emit(dxf_report(Path(a.file), Path(a.png) if a.png else None), a.json)
+        fit = dxf_fit(Path(a.file)) if a.fit else None
+        res = dxf_report(Path(a.file), Path(a.png) if a.png else None)
+        if fit is not None:
+            res["fit_applied"] = {k: fit[k] for k in ("changed", "entities_unchanged") if k in fit}
+            if not fit["fitted"]:
+                res["fail"].append(f"--fit refused, file left as it was: {fit.get('reason')}")
+        return _emit(res, a.json)
     ap.print_help()
     return 2
 

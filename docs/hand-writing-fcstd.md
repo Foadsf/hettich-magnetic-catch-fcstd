@@ -156,4 +156,5 @@ Each `App::Part` needs an `App::Origin` plus three `App::Line` and three `App::P
 | Slot length reads 3 instead of 6 | DistanceX/Y between two arcs measures centre to centre | add cosmetic vertices at the extremes |
 | `âŒ€4.5` in the DXF | the DXF writer puts UTF-8 into a file declared `ANSI_1252` | `%%c` in FormatSpec (the FreeCAD page then shows `%%c`) |
 | Hidden lines look like real edges in the DXF | the DXF writer emits hidden edges solid on the view layer | `HardHidden false` in views that go to DXF |
+| The DXF opens zoomed far out | the DXF writer sets no `$EXTMIN`/`$EXTMAX` and leaves the `*Active` viewport at (0,0), height 1000 | `fcstd_xml.py gui` fits every export; `dxf --fit` for a stray file; `dxf` fails an unfitted one. In ezdxf, set the modelspace layout's extents as well as the header, because its save overwrites the header from the layout |
 | After a parameter edit a view keeps its old projection | the edit arrived while hidden-line threads were busy | let the GUI idle about 10 s before editing (`gui` does this) |
